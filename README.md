@@ -3,4 +3,4 @@
 #前置作業
 
 
-*[installation](http://datascienceandr.org/install.html#)
+* [安裝R、RStudio、swirl R Package](http://datascienceandr.org/install.html#)
