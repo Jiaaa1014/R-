@@ -51,3 +51,51 @@ evaluate <- function(func, dat){
 telegram <- function(...){
   paste("START", ..., "STOP")
 }
+
+
+# 恩，這好怪，別忽略double quotes
+"%p%" <- function(...){ # Remember to add arguments!
+  paste(...)
+}
+> "I" %p% "love" %p% "R!"
+[1] "I love R!"
+
+
+
+
+#################################################
+############### lapply and sapply ###############
+#################################################
+
+
+# `head()`來顯示一組國旗資料的前6項
+> head(flags)
+# 後6項
+> tail(flags)
+
+# 194個國家，30個資料
+> dim(flags)
+[1] 194  30
+
+# `attributes`裡面有`names`, `class`, `row_names`三個屬性
+> attributes(flags)
+$names
+ [1] "name"       "landmass"   "zone"       "area"       "population" "language"   "religion"   "bars"      
+ [9] "stripes"    "colours"    "red"        "green"      "blue"       "gold"       "white"      "black"     
+[17] "orange"     "mainhue"    "circles"    "crosses"    "saltires"   "quarters"   "sunstars"   "crescent"  
+[25] "triangle"   "icon"       "animate"    "text"       "topleft"    "botright"  
+
+$class
+[1] "data.frame"
+
+$row.names
+  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28
+  ######   省略
+
+# 可以個別叫出來
+> names(flags)
+> class(flags)
+> row.names(flags)
+
+
+
