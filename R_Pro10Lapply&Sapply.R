@@ -29,7 +29,7 @@ $row.names
 
 
 # `lapply()`將`class()`用在`flags`這筆資料的column上，有些得到`factor`，有些是`integer`
-> cls_list <-lapply(flags,class)
+> cls_list <-lapply(flags, class)
 > cls_list
 $name
 [1] "factor"
@@ -106,7 +106,7 @@ $black
 $orange
 [1] 26
 
-# 再一次，sapply總是好看多了
+# 再一次，`sapply`總是好看多了
 > sapply(flag_colors, sum)
    red  green   blue   gold  white  black orange 
    153     91     99     91    146     52     26 
