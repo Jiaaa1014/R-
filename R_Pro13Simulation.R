@@ -53,7 +53,7 @@ rnorm
 # 補充：
 
 # 在R_Pro05-08.R有提過[r/d/p/q]norm()
-
+# 搭配分布
 # r: random
 # d: density
 # p: probability
@@ -62,16 +62,43 @@ rnorm
 # d可以想成是剩下的雙尾佔了多少%
 # p就當作這個地點累積了多少%
 
-
-# Normal Distribution: rnorm(), dnorm(), pnorm(), qnorm()
-# Binomial Distribution: rbinom(n,size,prob), dbinom(x,size,prob), pbinom(x,size,prob), qbinom(p,size,prob)
-# Poisson Distribution(偏左的山): rpois(n,lambda), dpois(x,lambda), ppois(x,lambda), qpois(p,lambda)
-# Gamma Distribution(low, highest, lower): rgamma(n,shape,scale), dgamma(x,shape,scale), pgamma(x,shape,scale), qgamma(p,shape,scale)
-# Chi Square: rchisq(n, df), dchisq(x, df), pchisq(x ,df), qchisq(p, df)
-
-
+# 參數意義
 # n: 觀測數目
 # x: 標準化後的值
-# p: 機率
+# p: 機
+
+
+
+# Normal Distribution: 
+ # rnorm(), 
+ # dnorm(), 
+ # pnorm(), 
+ # qnorm()
+
+# Binomial Distribution: 
+ # rbinom(n,size,prob), 
+ # dbinom(x,size,prob), 
+ # pbinom(x,size,prob), 
+ # qbinom(p,size,prob)
+
+# Poisson Distribution(偏左的山): 
+ # rpois(n,lambda), 
+ # dpois(x,lambda), 
+ # ppois(x,lambda), 
+ # qpois(p,lambda)
+
+# Gamma Distribution(low, highest, lower): 
+ # rgamma(n,shape,scale), 
+ # dgamma(x,shape,scale), 
+ # pgamma(x,shape,scale), 
+ # qgamma(p,shape,scale)
+
+# If a Chi-Squared distribution has p degrees of freedom, then this is identical to a Gamma(p/2,2) distribution.
+
+# Chi Square: 
+ # rchisq(n, df), 
+ # dchisq(x, df), 
+ # pchisq(x ,df), 
+ # qchisq(p, df)
 
 
