@@ -121,8 +121,7 @@ function (path = ".", pattern = NULL, all.files = FALSE, full.names = FALSE,
 
 # `my_char`是個存字串的vector
 > paste(my_char, collapse = " ")
-#  collapse同個位置的向量建立橋樑；sep不同組區隔
-
+# collapse是不同位置區隔，sep同個位置配對之間的區隔
 > paste(1:3 ,c("X", "Y", "Z"), sep="")
 [1] "1X" "2Y" "3Z"
 
