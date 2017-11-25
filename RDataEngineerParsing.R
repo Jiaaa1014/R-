@@ -3,8 +3,7 @@
 [1] "C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses\\DataScienceAndR\\02-RDataEngineer-01-Parsing\\DataGov25511.csv"
 
 
-# n = 3也可
-readBin(hospital_path, what = "raw", n = 3L)
+# 查詢BOM，`n = 3`
 > readBin(hospital_path, what = "raw",n = 3L)
 [1] 59 45 41
 
@@ -14,12 +13,12 @@ readBin(hospital_path, what = "raw", n = 3L)
 # UTF-8(EF BB BF)
 # 59 45 41當然無法判別
 
-# 這個不是UTF-8編碼
+# 不是`UTF-8`，失敗
 > readLines(file(hospital_path, encoding = "UTF-8"), n = 6)
 [1] "YEARYY,HOSPID,HOSPNAME,SPECIALNAME,CODE2,CODE3,CODE5,CODE8,CODE9,CODE10,CODE11,,"
 [2] "100Q1,0501010019,"                
 
-# 所以改成BIG5，done
+# 改成`BIG5`，成功
 > readLines(file(hospital_path, encoding = "BIG5"), n = 6)
 [1] "YEARYY,HOSPID,HOSPNAME,SPECIALNAME,CODE2,CODE3,CODE5,CODE8,CODE9,CODE10,CODE11,,"                                               
 [2] "100Q1,0501010019,三軍總醫院松山分院附設民眾診療服務處                        ,區域醫院            ,45.00,3.84,0.9777,1,9,n,,,"  
@@ -28,38 +27,57 @@ readBin(hospital_path, what = "raw", n = 3L)
 [5] "100Q1,1101010012,長庚醫療財團法人台北長庚紀念醫院                            ,醫學中心            ,212.00,3.97,0.9858,2,25,n,,,"
 [6] "100Q1,3501013326,祐腎內科診所                                                ,診所                ,46.00,3.98,0.9782,1,5,n,y,," 
 
+# 弄得好看一點麻～
+> hospital <- read.table(file(hospital_path, encoding = "BIG5"), header = TRUE, sep = "," )
 
-# JS的substring(startIndex, endIndex)，不包含endIndex
+
 # R: `substring("abc", 1, 2)` //"ab"
-# 一長串的hospital$YEARYY是這些東西
+> hospital$YEARYY
 # 100Q1 100Q1 100Q1 100Q1 100Q1 100Q1 100Q1...
+# 16000多的鬼東西
 
+# 取出前6筆，再對每筆切割第1-3的字串
+# R的參數比較直覺
+# JS:substring(startIndex, endIndex)，不包含endIndex
 > substring(head(hospital$YEARYY), 1, 3)
 [1] "100" "100" "100" "100" "100" "100"
 
 > yearyy <- as.character(hospital$YEARYY)
-# > yearyy
-# "100Q1" "100Q1" "100Q1" "100Q1" "100Q1" "100Q1" "100Q1"...
+> yearyy
+"100Q1" "100Q1" "100Q1" "100Q1" "100Q1" "100Q1" "100Q1"...
 > class(yearyy)
 [1] "character"
+# 如果沒有as.character，回傳不會有""
 
-# 以"Q"當成分水嶺切割
+# 以"Q"當成分水嶺切割，切成16000多筆資料
 > tmp <- strsplit(yearyy, "Q")
 > class(tmp)
 [1] "list"
 
-> tmp[[2]]
+
+# list
+> tmp[1]
+[[1]]
 [1] "100" "1"  
 
-# 實際上要對每個 [[1到16000多]][1] 做處理因此 
-# 100Q1 -> "100", "1" ，兩個欄位
-> lapply(tmp, "[", 1)
+# character
+> tmp[[1]]
+[1] "100" "1"  
+
+# character
+> tmp[[1]][1]
+[1] "100"
+
+
+# 第1個參數: tmp --> c(tmp[[1]], tmp[[2]], ..., tmp[[16806]])
+# 第2個參數: "[" --> 做出`[]`的動作，`FUN`
+# 第3個參數:  1  --> 給第2個參數使用
 > lapply(tmp, "[", 2)
-# 然後跑出16000多筆資料..
 
 > tmp2 <- lapply(tmp, "[", 1)
+# 上面要跑很久又占空間，這次可以背靠背跑出來～
 > unlist(tmp2)
-# unlist(tmp2)密集地跑出資料，否則原本是「一筆一筆跑」
+
 > class(tmp2)
 [1] "list"
 > class(unlist(tmp2))
@@ -72,21 +90,27 @@ readBin(hospital_path, what = "raw", n = 3L)
 
 
 
+
+
+
+
+
 # 下列習題放在RStudio上跑 
 # 要先引入pirate_path這個海盜.txt資料
 
 pirate_path <- "C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses\\DataScienceAndR\\02-RDataEngineer-01-Parsing\\pirate-info-2015-09.txt"
-# 首先，我們把該檔案載入到R 之中
+
+# 該檔案內容一行一行載入
 pirate_info <- readLines(file(pirate_path, encoding = "BIG5"))
 
-# 接著我們要把經緯度從這份資料中萃取出來
-# 這份資料的格式，基本上可以用`：`分割出資料的欄位與內容
 
 pirate_info_key_value <- {
   
   # .delim為取出冒號
+  # [[1]]是R的特性，意義想成要取道那個list的手段
+  # [3]是真正要的冒號
   .delim <- strsplit(pirate_info[2], "")[[1]][3]
-  
+  # 再對每行為一大組以冒號分小組
   strsplit(pirate_info, .delim)
 }
 
@@ -99,23 +123,20 @@ pirate_info_key <- {
   sapply(pirate_info_key_value, "[", 1)
 }
 
-# 確保你的結果是字串向量，否則答案會出錯
 stopifnot(class(pirate_info_key) == "character")
 
-# 我們將`pirate_info_key`和`"經緯度"`做比較後，把結果存到變數`pirate_is_coordinate`
-# 結果應該為一個布林向量
+# 過濾小組有"經緯度"的59個大組 Boolean Vector
 pirate_is_coordinate <- {
   pirate_info_key == pirate_info_key[8]
 }
 
 # 確保你的結果是布林向量，否則答案會出錯
 stopifnot(class(pirate_is_coordinate) == "logical")
-# 應該總共有11件海盜通報事件
+# 11個事件，59大組有經緯度資料為11組
 stopifnot(sum(pirate_is_coordinate) == 11)
 
-# 接著我們可以利用`pirate_is_coordinate`和`pirate_info_key_value`
-# 找出所有的經緯度資料
-# 請把這個資料存到變數`pirate_coordinate_raw`中，並且是個長度為11的字串向量
+# "經緯度"在一定會有數值，通常在每大組(11/59)的第二小組
+# 然後當然要過濾同樣是第二小組但跟經緯度無關的字串
 pirate_coordinate_raw <- {
   .tmp <- sapply(pirate_info_key_value, "[", 2)
   .tmp[pirate_is_coordinate]
@@ -124,9 +145,7 @@ pirate_coordinate_raw <- {
 stopifnot(class(pirate_coordinate_raw) == "character")
 stopifnot(length(pirate_coordinate_raw) == 11)
 
-# 我們接著可以使用`substring`抓出經緯度的數字
-# 請先抓出緯度並忽略「分」的部份
-# 結果應該是整數（請用as.integer轉換）
+# 抓出緯度，as.xxxx()尚不熟悉
 pirate_coordinate_latitude <- {
   
   as.integer(substring(pirate_coordinate_raw, 3, 4))
@@ -135,8 +154,7 @@ pirate_coordinate_latitude <- {
 stopifnot(class(pirate_coordinate_latitude) == "integer")
 stopifnot(length(pirate_coordinate_latitude) == 11)
 
-# 請用同樣的要領取出經度並忽略「分」的部份
-# 結果同樣應該是整數
+#抓出經度
 pirate_coordinate_longitude <- {
   
   as.integer(substring(pirate_coordinate_raw, 12, 14))
@@ -146,6 +164,7 @@ stopifnot(class(pirate_coordinate_longitude) == "integer")
 stopifnot(length(pirate_coordinate_longitude) == 11)
 stopifnot(sum(pirate_coordinate_longitude) == 1151)
 
+#做成表格，以及colnames
 pirate_df <- data.frame(
   latitude = pirate_coordinate_latitude,
   longitude = pirate_coordinate_longitude
