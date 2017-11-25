@@ -3,13 +3,14 @@
 # 像是這樣，檢視所有的資料集
 > library(help=datasets)
 
-# 原本`class(iris)`為data.frame的重新給值
+# 原本`class(iris)`為data.frame的被我們覆蓋了...
 > iris <- 1
 
-# 那怎麼辦，如果我需要原始的`iris`呢？
+# 如果我需要原始的`iris`呢？
 # 從內建的資料集拿
 > data(iris, package = "datasets")
 
+##########
 
 # 外建資料集
 # 已經儲存好的變數
@@ -21,7 +22,9 @@
 > readBin(lvr_land.path, what = "raw", n = 3)
 [1] b6 6d c2
 
-# 沒有怎麼辦呢？
+# 對於是甚麼編碼沒有頭緒？
+# 看輸出來的每一條line
+# 第一行是header
 > readLines(file(lvr_land.path, encoding = "BIG5"), n = 5)
 [1] "鄉鎮市區,交易標的,土地區段位置或建物區門牌,土地移轉總面積平方公尺,都市土地使用分區,非都市土地使用分區,非都市土地使用編定,交易年月,交易筆棟數,移轉層次,總樓層數,建物型態,主要用途,主要建材,建築完成年月,建物移轉總面積平方公尺,建物現況格局-房,建物現況格局-廳,建物現況格局-衛,建物現況格局-隔間,有無管理組織,總價元,單價每平方公尺,車位類別,車位移轉總面積平方公尺,車位總價元,備註,編號"
 [2] "文山區,房地(土地+建物),臺北市文山區木柵路二段109巷100弄61~90號,43.44,住,,,10407,土地2建物1車位0,十四層,十七層,住宅大樓(11層含以上有電梯),住家用,鋼筋混凝土造,0850925,73.83,2,2,1,有,有,9600000,130028,,0.0,0,,RPVOMLNJQHKFFAA97CA"                                                                                                                                                      
@@ -32,8 +35,7 @@
 
 # 得知資訊
 > lvr_land.info <- file.info(lvr_land.path)
-> lvr_land.info
-                                                                                                                                  size isdir mode               mtime               ctime               atime exe
+> lvr_land.info                                                                                                                             size isdir mode               mtime               ctime               atime exe
 C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses\\DataScienceAndR\\01-RBasic-07-Loading-Dataset\\A_LVR_LAND_A.CSV 4594 FALSE  666 2017-11-22 18:15:49 2017-11-21 12:01:51 2017-11-21 12:01:51  no
 
 # 過去常用的函式來試一遍
@@ -54,10 +56,8 @@ $row.names
 # 不要試著印出來...
 # 不要試著印出來...
 # 不要試著印出來...
-# 會有道4000多個資料
+# 會有4000多個資料
 > class(lvr_land.bin)
-[1] "raw"
-> mode(lvr_land.bin)
 [1] "raw"
 > attributes(lvr_land.bin)
 NULL
@@ -66,29 +66,24 @@ NULL
 # 先引入要用的package
 > library(stringi)
 
+
 # 將型態raw原先的編碼轉換後，存到一個變數中
 > lvr_land.txt <- stri_encode(lvr_land.bin, "BIG-5", "UTF-8")
 # 阿...資料都濃縮在一行了
 > class(lvr_land.txt)
 [1] "character"
-> mode(lvr_land.txt)
-[1] "character"
 > attributes(lvr_land.txt)
 NULL
 
 
-
 > read.table(lvr_land.path, fileEncoding = "BIG-5")
 # 得出來的表格，中文都靠右去了
-# 預設`reader = FALSE`，它的欄位名稱占用到row1
+# 預設`reader = FALSE`，所以header名稱占用到row1
 
 > lvr_land <- read.table(file(lvr_land.path, encoding = "BIG5"), header = TRUE, sep = ",")
 # 顯示的方式好看多
 > class(lvr_land)
 [1] "data.frame"
-> mode(lvr_land)
-[1] "list"
-
 > attributes(lvr_land)
 $names
  [1] "鄉鎮市區"                 "交易標的"                 "土地區段位置或建物區門牌"
@@ -131,27 +126,31 @@ opened      "opened"
 can read    "yes"           
 can write   "no"            
 
+# 使用濃縮成一行的`lvr_land.txt`試試看
+> read.table(textConnection(lvr_land.txt), header = TRUE, sep = ",")
+
 
 # 在MBCS為TRUE而UTF-8為FALSE的情況下
+
 > read.table(get_text_connection_by_l10n_info(lvr_land.txt), header = TRUE, sep = ",")
 # 顯示的結果和`lvr_land`相同
 
 
-# 每個資料佔一行   readLines(file(lvr_land.path, encoding = "BIG5"), n = 5)
-# 編碼            lvr_land.bin <- readBin(lvr_land.path, what = "raw", n = lvr_land.info$size)
-# 中文濃縮        lvr_land.txt <- stri_encode(lvr_land.bin, "BIG-5", "UTF-8")
-
-# 下面兩個是一樣的
-# lvr_land <- read.table(file(lvr_land.path, encoding = "BIG5"), header = TRUE, sep = ",")
-# read.table(get_text_connection_by_l10n_info(lvr_land.txt), header = TRUE, sep = ",")
 
 
 
-# <你可以在這裡做各種嘗試>
+
+
+
+
+
+orglist.path <-"C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses\\DataScienceAndR\\01-RBasic-07-Loading-Dataset\\orglist-100.CSV"
+
 answer.raw <- readBin(orglist.path, what = "raw", n = file.info(orglist.path)$size)
 answer.txt <- stringi::stri_encode(answer.raw, from = "UTF-16", to = "UTF-8")
 get_text_connection_by_l10n_info <- function(x) {
   info <- l10n_info()
+  
   # 以下的if else是因為需要讓正確答案跨平台
   if (info$MBCS & !info$`UTF-8`) {
     textConnection(x)
