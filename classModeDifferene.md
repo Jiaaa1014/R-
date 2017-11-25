@@ -10,7 +10,7 @@ ___
   沒有的話繼承mode()
 ---
 `character`, `data.frame`, `Date`, `factor`, `function`, `integer`, `list`, `lm`,
-`logical`, `matrix`, `numeric`, `POSIXct`, `POSIXt`, `promp`, `summary???`, 
+`logical`, `matrix`, `numeric`, `POSIXct`, `POSIXt`, `promp`, `raw`, `summary???`, 
 `xml_document`, `xml_nodeset`, `xml_node`
 
 | class                 | mode    |
