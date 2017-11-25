@@ -21,7 +21,6 @@ doc1 <- read_xml(x1)
 [3] <c class="x">C2</c>
 
 
-# class之於mode, xml_document, xml_nodeset, xml_node之於list
 # xml2物件可分成三部分：xml_document > xml_nodeset > xml_node
 # document代表整個文件、node是標籤
 > class(doc1)
