@@ -206,10 +206,3 @@ stopifnot(length(trs_children_text) == 8)
 
 # 只挑出那些值「不是」 "　廠商名稱"的元素
 players <- trs_children_text[trs_children_text != player_name_reference]
-
-# 其實這樣取出的廠商名稱還是很髒，有一大堆換行、tab字元等等
-# 但是我們就先練習到這裡了
-
-
-
-
