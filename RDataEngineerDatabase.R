@@ -180,15 +180,19 @@ dbBegin(db)
 # R 內建的iris資料共有三種類別，一共150筆花的量測資料。
 # 請同學將屬於setosa種類（Species的值為"setosa"）的資料，
 # 寫入到database，並且取名為"setosa"。
+gc()
 {
-  dbWriteTable(db, "iris", iris[iris$Species == "setosa",], overwrite = TRUE)
+  dbWriteTable(db, "setosa", iris[iris$Species == "setosa",], overwrite = TRUE)
   
 }
 
 # 讀取/寫入
 {
-  dbReadTable(db,"iris")
+  dbReadTable(db,"setosa")
 }
 
 # 最後，我們中斷連線。
 dbDisconnect(db)
+
+# 測試程式將會檢查這個資料庫內的資料。
+
