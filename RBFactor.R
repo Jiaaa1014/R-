@@ -55,6 +55,7 @@ $class
 Levels: C < B < A
 
 
+# RStudio操作
 
 # 有順序的物件
 # 使用`str()`
