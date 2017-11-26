@@ -36,7 +36,7 @@ doc1 <- read_xml(x1)
 > xml_find_all(doc1, "/b")
 {xml_nodeset (0)}
 
-# 有兩個
+# 有兩個c
 > xml_find_all(doc1, "/a/c")
 {xml_nodeset (2)}
 [1] <c>C1</c>
@@ -64,12 +64,20 @@ doc1 <- read_xml(x1)
 # xml_text()求節點文字
 > xml_text(n1)
 [1] "C1"
-> xml_text(ns[[2]])
-[1] "C2"
+
 > class(ns[2])
 [1] "xml_nodeset"
 > class(ns[[2]])
 [1] "xml_node"
+
+
+# 找上一層
+> xml_parent(n1)
+{xml_node}
+<a>
+[1] <b>B</b>
+[2] <c>C1</c>
+[3] <c class="x">C2</c>
 
 
 a <- xml_find_one(doc1, "/a")
@@ -102,7 +110,7 @@ a <- xml_find_one(doc1, "/a")
 
 # 看有無class
 # 第1個c沒有，第2個有
-# n1: ns[[1]], n2: ns[[2]]
+
 
 > xml_attrs(n1)
 named character(0)
@@ -126,6 +134,11 @@ class
 
 
 
+
+
+
+
+
 # 0080400004.html檔案
 # 兩種表示方法，第二種不行
 tender_path <- "C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses\\DataScienceAndR\\02-RDataEngineer-02-XML\\0080400004.html"
@@ -134,8 +147,7 @@ tender_path <- "C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses
 if (FALSE) {
   
   readLines(tender_path, n = 100)
-  
-  
+  # 檔案以瀏覽器開啟   
   browseURL(tender_path, browser = "C:/Program Files/Mozilla Firefox/firefox.exe")
 
 }
