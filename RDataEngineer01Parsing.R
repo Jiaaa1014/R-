@@ -95,76 +95,58 @@
 
 
 
-# 下列習題放在RStudio上跑 
-# 要先引入pirate_path這個海盜.txt資料
 
 pirate_path <- "C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses\\DataScienceAndR\\02-RDataEngineer-01-Parsing\\pirate-info-2015-09.txt"
-
-# 該檔案內容一行一行載入
 pirate_info <- readLines(file(pirate_path, encoding = "BIG5"))
 
 
 pirate_info_key_value <- {
-  
-  # .delim為取出冒號
-  # [[1]]是R的特性，意義想成要取道那個list的手段
-  # [3]是真正要的冒號
   .delim <- strsplit(pirate_info[2], "")[[1]][3]
-  # 再對每行為一大組以冒號分小組
   strsplit(pirate_info, .delim)
 }
 
-# 我們需要的欄位名稱是「經緯度」
-# 請同學先把`pirate_info_key_value`中每個元素（這些元素均為字串向量）的第一個值取出
-# 你的答案鷹該要是字串向量
+# 我們需要的欄位名稱是「經緯度」，
 pirate_info_key <- {
-  # 請在這邊填寫你的程式碼
-  # 這個程式碼可以多行
   sapply(pirate_info_key_value, "[", 1)
 }
 
 stopifnot(class(pirate_info_key) == "character")
 
-# 過濾小組有"經緯度"的59個大組 Boolean Vector
+# 是否為經緯度字串
 pirate_is_coordinate <- {
   pirate_info_key == pirate_info_key[8]
 }
 
-# 確保你的結果是布林向量，否則答案會出錯
 stopifnot(class(pirate_is_coordinate) == "logical")
-# 11個事件，59大組有經緯度資料為11組
 stopifnot(sum(pirate_is_coordinate) == 11)
 
-# "經緯度"在一定會有數值，通常在每大組(11/59)的第二小組
-# 然後當然要過濾同樣是第二小組但跟經緯度無關的字串
+# 接著我們可以利用`pirate_is_coordinate`和`pirate_info_key_value`，
+# 找出所有的經緯度資料。
+# 請把這個資料存到變數`pirate_coordinate_raw`中，這將會是個長度為11的字串向量。
 pirate_coordinate_raw <- {
-  .tmp <- sapply(pirate_info_key_value, "[", 2)
-  .tmp[pirate_is_coordinate]
+  sapply(pirate_info_key_value, "[", 2)[pirate_is_coordinate]
 }
 
 stopifnot(class(pirate_coordinate_raw) == "character")
 stopifnot(length(pirate_coordinate_raw) == 11)
 
-# 抓出緯度，as.xxxx()尚不熟悉
+# 切割出來要數字
+# 緯度
 pirate_coordinate_latitude <- {
-  
   as.integer(substring(pirate_coordinate_raw, 3, 4))
 }
-
 stopifnot(class(pirate_coordinate_latitude) == "integer")
 stopifnot(length(pirate_coordinate_latitude) == 11)
+stopifnot(sum(pirate_coordinate_latitude) == 43)
 
-#抓出經度
+# 經度
 pirate_coordinate_longitude <- {
-  
   as.integer(substring(pirate_coordinate_raw, 12, 14))
 }
-
 stopifnot(class(pirate_coordinate_longitude) == "integer")
 stopifnot(length(pirate_coordinate_longitude) == 11)
 stopifnot(sum(pirate_coordinate_longitude) == 1151)
 
-#做成表格，以及colnames
 pirate_df <- data.frame(
   latitude = pirate_coordinate_latitude,
   longitude = pirate_coordinate_longitude
@@ -177,3 +159,4 @@ stopifnot(class(pirate_df$latitude) == "integer")
 stopifnot(class(pirate_df$longitude) == "integer")
 stopifnot(sum(pirate_df$latitude) == 43)
 stopifnot(sum(pirate_df$longitude) == 1151)
+
