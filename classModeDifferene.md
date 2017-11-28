@@ -5,9 +5,8 @@
 
 ___
 
- # class():
-  不一定有class
-  沒有的話繼承mode
+ # class():  
+ ### 不一定有class，沒有的話繼承mode
 
 `character`, `data.frame`, `Date`, `factor`, `function`, `integer`, `list`, `lm`,
 `logical`, `matrix`, `numeric`, `POSIXct`, `POSIXt`, `promp`, `raw`, `summary???`, 
