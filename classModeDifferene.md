@@ -24,6 +24,9 @@ ___
 | factor                | numeric |
 | integer               | numeric |
 | matrix                | numeric |
+| table                 | numeric |
 | `summary`             | ??????? |
+
+
 
 
