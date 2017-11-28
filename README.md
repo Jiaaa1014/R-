@@ -28,3 +28,4 @@ File -> Reopening with Encoding...
 ### 外部資源
 
 * [R语言中的色彩和调色板](http://iccm.cc/colors-and-palettes-in-r-language/)
+* [R语言绘图设备](http://blog.csdn.net/hongweigg/article/details/45242383)
