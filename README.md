@@ -17,3 +17,14 @@ File -> Reopening with Encoding...
 * [資料夾、檔案的操作](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro01-04.R#L23)
 * [rep() - (time, each)參數的差別](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro01-04.R#L89)
 * [paste() - (collapse, sep)參數的差別](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro01-04.R#L118)
+
+
+
+
+
+
+
+## 參考
+### 外部資源
+
+* [R语言中的色彩和调色板](http://iccm.cc/colors-and-palettes-in-r-language/)
