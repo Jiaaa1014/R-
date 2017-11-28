@@ -8,6 +8,24 @@
 [1] "numeric"
 
 
+# `plot(x, y, ...)`
+# ...
+# 1. type = "l", "p", "b"
+#           "o" (比"b"的線條更湊在點上)
+#           "c" (比"l"更縮)
+#           "h" (直方圖，可以想像數據多更醜)    
+#           "s" ("l"階梯化)
+#           "S" (阿..跟"s"差不多左偏一點)
+#           "n" (不畫)
+# 2. main, sub: 設置標題副標題
+# 3. xlab, ylab: x, y軸的標籤
+# 4. asp: y/x比例
+
+
+# 如果打不開`plot()`，可能是因為之前執行過`dev.off()`
+# 打開方式：win.graph(), dev.new(), X11()
+
+
 # 點點圖，流產次數為y軸，看不出趨勢
 > plot(spon)
 
@@ -25,13 +43,20 @@ spon
 141  71  36 
 > class(table(spon))
 [1] "table"
+
+# `pie()`
+#     `label`設置每個資料的簡短標籤，值為字串向量
+# 參數`clockwise = TRUE`的話從12點鐘開始切
+#     `col`設置顏色，`palette()`可查看
+#     `radius`設置半徑    
+#     `border`設置邊界顏色(8種)
+#     `lty`設置線條樣式(6種)
 # 圓餅圖，要先過`table`算過傳給`pie()`
 > pie(table(spon))
 
-
+# 點點圖， 和起初的`plot(spon)`一樣，看不出來趨勢
 > age <- infert$age
 > plot(age)
-# 和起初的`plot(spon)`一樣，看不出來趨勢
 
 # 折線圖，有三個不明顯的波峰
 > plot(age, type = "l")
@@ -39,6 +64,7 @@ spon
 
 # 直方圖，最簡陋的那種
 > x <- hist(age)
+# 細節
 > x
 $breaks
  [1] 20 22 24 26 28 30 32 34 36 38 40 42 44
@@ -66,15 +92,23 @@ attr(,"class")
 > sum(age > 26 & age <= 28)
 [1] 45
 
+# x軸的age有刻度數字
+> plot(cut(age, breaks = x$breaks))
+
 
 # 密度圖
 > plot(density(age))
-# bandwidth更窄，好醜，`bw`越大越平滑
+
+# `bw`是bandwidth，越小更窄，好醜，`bw`越大越平滑
 > plot(density(age, bw = 0.1))
-# `bw = "SJ"`為兩個峰，其他也有`"ucv", "bcv"`
-# `bw = "ucv"`比0.1寬一點
-# `bw = "bcv"`比"SJ"更平滑
+# `bw = "SJ"` (1.337)，為兩個峰 
+#       "ucv" (0.2074)
+#       "bcv" (1.982)
+#       "nrd" (1.848)
+#       "nrd0"(1.569)
+# `adjust = 1`與`bw`抗衡，值越大越平滑 
 > plot(density(age, bw = "SJ"))
+
 
 
 # 1700-1988年的太陽黑子數量
@@ -90,35 +124,37 @@ Frequency = 1
 
 > class(sunspot.year)
 [1] "ts"
-> mode(sunspot.year)
-[1] "numeric"
 
 # `ts`型態數據會直接依序把數據串起來(像密度圖)
 > plot(sunspot.year)
 # 但只要最後的100年
-> x <- tail(sunspot.year,100)
+> x <- tail(sunspot.year, 100)
+# 變了資料型態
 > class(x)
+[1] "numeric"
+
 
 # 只有點點，等同於`plot(x, type ="p")`
 > plot(x)
 # 串起來有線有點點
 > lines(x)
 # 設定樣式
-# col有八種顏色
 # lwd為線的寬度
 > lines(x, lty = 3, lwd = 3, col = 2)
 
 
-# 輸出圖片
+# 產生隨機暫存檔名稱
 > dst <- tempfile(fileext = ".png")
+# 圖片輸出至檔案
+> savePlot(dst, type = "png")
 # 打開繪圖引擎
 > png(dst)
 # 則輸入`plot(x)`也不會有動作
 
 # 關閉png的繪圖引擎
 > dev.off()
-windows 
-      2 
+png 
+  2 
 
 
 # 若是用RStudio，可觀看剛剛儲存的圖片
@@ -127,6 +163,7 @@ windows
 
 
 # ????????????????????????????????????
+> skip()
 > try(dev.off(), silent = TRUE)
 null device 
           1 
@@ -213,7 +250,72 @@ pie(sex, labels = label)
 
 if (FALSE) {
   # 3D pie chart
-  library(plotrix) # 同學請自行安裝這個套件
+  library(plotrix) 
   pie3D(sex, labels = label)
 }
 #################################################
+
+#################################################
+x <- tail(sunspot.year, 50) # 只選出最後50筆資料做圖
+# 畫出散布圖
+plot(x) 
+# 將點連接起來
+lines(x) # 低階繪圖函數
+# 調色
+lines(x, col = "red")
+# 加粗
+lines(x, lwd = 2)
+# 改變線的型態
+plot(x) # 重新畫圖
+lines(x, lty = 3)
+# 標題
+plot(x, main = "sunspot")
+# 刪除x 軸座標
+plot(x, xaxt = "n")
+# y 軸座標更改
+plot(x, yaxt = "n") # 先刪除y軸座標
+axis(2, at = seq(10, 200, 10), labels = seq(10, 200, 10))
+# 請回到console輸入`submit()`
+#################################################
+
+#################################################
+
+hsb_path <- "C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses\\DataScienceAndR\\03-RVisualization-01-One-Variable-Visualization\\hsb.csv"
+hsb <- read.table(file(hsb_path, encoding = "UTF-8"), header = TRUE, sep = ",")
+math <- hsb$math
+plot(density(math))
+math.sj <- density(math, bw = "SJ")
+plot(math.sj)
+# 線的粗細
+plot(math.sj, lwd = 2) # lwd越大越粗
+# 線的型態
+plot(math.sj, lty = 2) 
+if (FALSE) {
+  # 以下指令可以畫出lty的數字與畫圖後的結果
+  showLty <- function(ltys, xoff = 0, ...) {
+    stopifnot((n <- length(ltys)) >= 1)
+    op <- par(mar = rep(.5,4)); on.exit(par(op))
+    plot(0:1, 0:1, type = "n", axes = FALSE, ann = FALSE)
+    y <- (n:1)/(n+1)
+    clty <- as.character(ltys)
+    mytext <- function(x, y, txt)
+      text(x, y, txt, adj = c(0, -.3), cex = 0.8, ...)
+    abline(h = y, lty = ltys, ...); mytext(xoff, y, clty)
+    y <- y - 1/(3*(n+1))
+    abline(h = y, lty = ltys, lwd = 2, ...)
+    mytext(1/8+xoff, y, paste(clty," lwd = 2"))
+  }
+  showLty(1:6)
+}
+# 線的顏色
+plot(math.sj, col = "red")
+# 對線之下的面積著色
+polygon(math.sj, col = "red") # 這是一個低階繪圖函數
+# 標題
+plot(math.sj, main = "math")
+# x軸標題
+plot(math.sj, xlab = "math")
+# 請回到console輸入`submit()`
+#################################################
+
+
