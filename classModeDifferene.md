@@ -15,6 +15,7 @@ ___
 
 | class                 | mode    |
 |:-------------         | -----:  |
+| histgram              |  list   |
 | xml_document          |  list   |
 | xml_nodeset           |  list   |
 | xml_node              |  list   |
@@ -25,7 +26,8 @@ ___
 | integer               | numeric |
 | matrix                | numeric |
 | table                 | numeric |
-| `summary`             | ??????? |
+| ts                    | numeric |
+| `summary`             | ??????? |
 
 
 
