@@ -9,7 +9,7 @@
   male        14     77
 
 # 男女數量堆積在學校類別上的直條圖
-# `legend=TRUE`代表有標註男生女生的顏色
+# `legend=TRUE`代表有標註男生女生的圖例
 > barplot(tab1, legend=TRUE)
 # `beside=TRUE`，不要男女堆疊，分開表示
 # `args.lenged`為(x, y)座標，且是跟著資料的度量衡當標準的
@@ -62,5 +62,41 @@ sex       private   public
 4            White       54
 > class(dat3)
 [1] "tbl_df"     "tbl"        "data.frame"
+# `horiz=TRUE`使得長條圖變成水平的
+> barplot(dat3$read.med, names.arg = dat3$race, horiz = TRUE)
+
+# 點標圖，很可愛～很像某個點點在跑短跑的腳程
+> dotchart(dat3$read.med, labels = dat3$race)
+
+# 原始`plot()`支援箱形圖
+# `plot(y ~ x, data)`
+> plot(math ~ race, data=hsb)
+
+# 但是現在有`boxplot()`可以用了！！
+# `col`還可以指定顏色
+> boxplot(math ~ schtyp, data=hsb, col=c("darkblue", "gold"))
+# 新增圖例
+> legend("topleft", c("private", "public"), fill=c("darkblue", "gold"))
 
 
+# 散佈圖
+> plot(x=hsb$math, y=hsb$read)
+# 等於(但xy軸標示不同)
+> plot(read ~ math, data=hsb)
+# 等於(xy對調)
+> plot(~ read + math, data=hsb)
+
+# 互相配對4*4格12組資料
+> plot(~read+math+science+socst,data=hsb, main="HSB score")
+
+
+> col.sex <- ifelse(hsb$sex=="male", "#e34a3355", "#2c7fb855")
+> pch.schtyp <- ifelse(hsb$schtyp=="public", 1, 19)
+> cex.science <- (hsb$science-25)/(50)*5
+
+# 重點來了，參考R/images
+> plot(~read+math, data=hsb, col=col.sex, pch=pch.schtyp, cex=cex.science)
+# col得到的是男生給藍色女生給粉色
+# pch設定是資料點的圖案，1代表空心圓，19代表實心圓
+# cex代表的是scale，要放大多少倍
+# 這三個參數分別得到字串,字串,數字向量
