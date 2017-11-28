@@ -22,11 +22,15 @@ ___
 | promp                 |  list   |
 | data.frame            |  list   |
 | lm                    |  list   |
+| tbl_df                |  list   |
+| tbl                   |  list   |
+| grouped_df            |  list   |
 | factor                | numeric |
 | integer               | numeric |
 | matrix                | numeric |
 | table                 | numeric |
 | ts                    | numeric |
+| xtabs                 | numeric |
 | `summary`             | ??????? |
 
 
