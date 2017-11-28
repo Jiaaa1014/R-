@@ -34,7 +34,7 @@
 [1] "grouped_df" "tbl_df"     "tbl"        "data.frame"
 
 
-# 再將`dat2`轉換回表格型態，使用xtabs
+# 再將`dat2`轉換回表格型態，使用`xtabs()`
 > tab2 <- xtabs(formula = math.avg ~ sex + schtyp , data = dat2)
 > tab2
         schtyp
@@ -86,7 +86,7 @@ sex       private   public
 # 等於(xy對調)
 > plot(~ read + math, data=hsb)
 
-# 互相配對4*4格12組資料
+# 互相配對4*4格12組資料，參考R/images
 > plot(~read+math+science+socst,data=hsb, main="HSB score")
 
 
