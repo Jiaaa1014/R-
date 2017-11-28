@@ -8,7 +8,7 @@ ___
  # class():  
  ### 不一定有class，沒有的話繼承mode
 
-`character`, `data.frame`, `Date`, `factor`, `function`, `integer`, `list`, `lm`,
+`array`,`character`, `data.frame`, `Date`, `factor`, `function`, `integer`, `list`, `lm`,
 `logical`, `matrix`, `numeric`, `POSIXct`, `POSIXt`, `promp`, `raw`, `summary???`, 
 `xml_document`, `xml_nodeset`, `xml_node`
 
@@ -24,6 +24,7 @@ ___
 | tbl_df                |  list   |
 | tbl                   |  list   |
 | grouped_df            |  list   |
+| array                 | numeric |
 | factor                | numeric |
 | integer               | numeric |
 | matrix                | numeric |
