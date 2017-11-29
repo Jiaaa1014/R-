@@ -31,9 +31,11 @@ File -> Reopening with Encoding...
 * [R语言绘图设备](http://blog.csdn.net/hongweigg/article/details/45242383)
 
 ### 繪圖函數
+
 * [常用的 R 繪圖程式](http://web.ntpu.edu.tw/~cflin/Teach/R/R06EN06Graphics.pdf)
 
 > 例如：
- * 高階繪圖函數：`plot`,`hist`, `pie`, `dotchart`, `barplot`, `boxplot`
- * 低階繪圖函數：`points`, `lines`, `legend`
+ * 高階繪圖函數: `plot`,`hist`, `pie`, `dotchart`, `barplot`, `boxplot`
+ * 低階繪圖函數: `points`, `lines`, `legend`
+ * 最詳盡的`ggplot2`: [ggplot2](http://ggplot2.tidyverse.org/index.html)
  * `ggplot`[圖解](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
