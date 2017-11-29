@@ -1,13 +1,13 @@
 # http://docs.ggplot2.org
 
-# 兩種方法，並且載入`ggplot2`
+# 兩種方法安裝，並且載入`ggplot2`
 # check_then_install("ggplot2", "2.0.0")
 > install.packages("ggplots")
 > library(ggplot2)
 
 
-# 建立物件，建立畫板，x軸為年齡層區分
-> g <- ggplot(infert. aes(x = education))
+# 建立物件，建立畫板，x軸為教育時間區分
+> g <- ggplot(infert, aes(x = education))
 
 # 畫上直條圖
 > g + geom_bar()
@@ -29,7 +29,7 @@ g <- ggplot(hsb)
 g + geom_bar(aes(x = sex, fill = race))
 # `position = "stack"`是預設值，y軸數量以堆疊方式
 # `dodge`為錯開，兩個性別的族群分開計算，總共8條
-> g + geom_bar(aes(x = sex, fill = race), position = "dodge")
+> g + geom_bar(aes(sex, fill = race), position = "dodge")
 
 # 載入套件
 > library(dplyr)
@@ -49,9 +49,9 @@ answer01 <- local({
 2   male    91
 
 # 先暫時別管`ggplot()`
-# `geom_bar()`的第1個`mapping`由`aes()`來完成
+# `geom_bar()`的`mapping`參數由`aes()`來完成
 # aes可以放甚麼？
-# `x, y, fill, group, size ,colour, alpha, linetype`
+# `x, y, fill, group, size ,color, alpha, linetype`
 
 # 起初沒有設置y的單位以至於y軸呈現男女皆是1
 > ggplot(answer01, aes(x = sex)) + geom_bar()
@@ -67,10 +67,10 @@ answer01 <- local({
 # `x = math`簡化成`math`，兩條密度圖分別為男生女生的數學成績
 > ggplot(hsb, aes(math, color = sex)) + geom_density()
 # 族群的閱讀成績密度圖
-> ggplot(hsb, aes(x = read, color = race)) + geom_density()
+> ggplot(hsb, aes(read, color = race)) + geom_density()
 
 
-# 性別、學校類別最分類計算數學成績
+# 性別、學校類別為分類計算數學成績
 > dat2 <- summarise(group_by(hsb, sex, schtyp), math.avg = mean(math))
 > g <- ggplot(dat2, aes(sex, math.avg, fill = schtyp))
 # y軸照著數學平均畫，然後兩者的性別(大組)裡面的公私立學校分開化長條圖
@@ -101,7 +101,6 @@ answer01 <- local({
 
 # 自己做調色
 > cb7 <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-
 # 試看看預設版本
 > g <- ggplot(hsb, aes(x = sex, fill = race)) + geom_bar()
 # 用這個`scale_fill_manual()`來改
@@ -113,6 +112,7 @@ answer01 <- local({
 # 暫存檔路徑
 > dst <- tempfile(fileext = ".png")
 > ggsave(dst)
+
 
 # 這樣就變成個別的族群
 # 參照 R/images/RVisualization03ggplot2-facetGrid().png
