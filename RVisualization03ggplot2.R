@@ -123,7 +123,7 @@ answer01 <- local({
 > check_then_install("GGally", "1.0.1")
 > library(GGally)
 # 4個欄位兩兩成對的散佈圖(read, write, math, science)
-# 好看版本的 R/images/RVisualization02ggplot2-1.png
+# 參照 RVisualization03ggplot2-ggpairs().png
 > ggpairs(hsb, 7:10)
 
 
