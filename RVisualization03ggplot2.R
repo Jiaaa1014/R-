@@ -125,5 +125,3 @@ answer01 <- local({
 # 4個欄位兩兩成對的散佈圖(read, write, math, science)
 # 參照 RVisualization03ggplot2-ggpairs().png
 > ggpairs(hsb, 7:10)
-
-
