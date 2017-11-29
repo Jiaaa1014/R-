@@ -33,6 +33,7 @@
 # 轉換數據型態，則`spon`列印出來會多個`Levels: 0 1 2`
 > spon <- factor(spon)
 # 直條圖，流產次數在x軸
+# 碰到類別(factor)或字串(character)向量時會將數據轉換為y座標
 > plot(spon)
 
 
@@ -89,6 +90,9 @@ attr(,"class")
 [1] "histogram"
 
 # 在26以上至28歲有45人
+# 比較完成後呈現邏輯向量
+# TRUE=1, FALSE=0, sum=符合的人數
+
 > sum(age > 26 & age <= 28)
 [1] 45
 
@@ -97,6 +101,20 @@ attr(,"class")
 
 
 # 密度圖
+> density(age)
+
+Call:
+        density.default(x = age)
+
+Data: age (248 obs.);   Bandwidth 'bw' = 1.569
+
+       x               y            
+ Min.   :16.29   Min.   :3.533e-05  
+ 1st Qu.:24.40   1st Qu.:5.871e-03  
+ Median :32.50   Median :2.679e-02  
+ Mean   :32.50   Mean   :3.082e-02  
+ 3rd Qu.:40.60   3rd Qu.:5.435e-02  
+ Max.   :48.71   Max.   :7.239e-02  
 > plot(density(age))
 
 # `bw`是bandwidth，越小更窄，好醜，`bw`越大越平滑
@@ -136,8 +154,11 @@ Frequency = 1
 
 # 只有點點，等同於`plot(x, type ="p")`
 > plot(x)
-# 串起來有線有點點
+
+# 串起來有線有點點，plot(x, type ="l")效果
+# 但不會另畫新圖 
 > lines(x)
+
 # 設定樣式
 # lwd為線的寬度
 > lines(x, lty = 3, lwd = 3, col = 2)
@@ -151,7 +172,7 @@ Frequency = 1
 > png(dst)
 # 則輸入`plot(x)`也不會有動作
 
-# 關閉png的繪圖引擎
+# 關閉png的繪圖引擎，圖檔才可以開啟顯示東西
 > dev.off()
 png 
   2 
@@ -317,5 +338,7 @@ plot(math.sj, main = "math")
 plot(math.sj, xlab = "math")
 # 請回到console輸入`submit()`
 #################################################
+
+
 
 
