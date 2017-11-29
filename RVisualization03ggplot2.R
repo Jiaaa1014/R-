@@ -127,7 +127,8 @@ answer01 <- local({
 > ggpairs(hsb, 7:10)
 
 
-# HW
+#################################################
+# HW01
 # 已有個`population`資料
 > p <- population
 > tb1 <- group_by(p, age) %>% summarise(much = sum(count))
@@ -137,3 +138,37 @@ answer01 <- local({
 # tb1很重要，如果直接跑資料會超久=__=
 
 
+
+# HW02
+> bg <- filter(p, p$village == "留侯里") %>% 
+        select(village, sex, count) %>% 
+        group_by(sex) %>%
+        summarise(sum(count))
+
+> names(bg) <- c("sex", "count")
+# `width = 1`填滿(變成直方圖形式)，加上哪一里
+> ggplot(bg, aes(sex, count, fill=sex)) + geom_bar(stat="identity", width = 1 ) + labs(title="留侯里")
+# https://stackoverflow.com/questions/32941670/width-and-gap-of-geom-bar-ggplot2
+
+
+
+# HW03
+> myPlace <- filter(p, substring(site_id,1,6) =="桃園市八德區", village == "大仁里")
+> allage <- select(myPlace,age, sex, count)              
+> ggplot(allage, aes(age, count, color=sex)) + geom_line() + geom_point()
+
+
+
+# HW04 沒寫好累
+# 桃園與新北
+# 把`aes(color = city)`去掉，會把桃園新北的點點都串成一條
+ >  g <-
+      mutate(population, city = substring(site_id, 1, 3)) %>%
+      filter(city %in% c("桃園市", "新北市")) %>%
+      group_by(city, age) %>%
+      summarise(count = sum(count)) %>%
+      group_by(city) %>%
+      mutate(ratio = count / sum(count)) %>%
+      ggplot(aes(x = age, y = ratio, color = city)) +
+      geom_point() + geom_line()
+#################################################
