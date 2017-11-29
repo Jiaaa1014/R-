@@ -36,4 +36,4 @@ File -> Reopening with Encoding...
 > 例如：
  * 高階繪圖函數：`plot`,`hist`, `pie`, `dotchart`, `barplot`, `boxplot`
  * 低階繪圖函數：`points`, `lines`, `legend`
-  
+ * `ggplot`[圖解](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
