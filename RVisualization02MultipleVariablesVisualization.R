@@ -103,7 +103,7 @@ sex       private   public
 # 等於(xy對調)
 > plot(~ read + math, data=hsb)
 
-# 互相配對4*4格12組資料，參考R/images
+# 互相配對4*4格12組資料，參照 R/images/RVisualization02ggplot2-1.png
 > plot(~ read+math+science+socst, hsb, main="HSB score")
 
 
@@ -113,7 +113,7 @@ sex       private   public
 > pch.schtyp <- ifelse(hsb$schtyp=="public", 1, 19)
 > cex.science <- (hsb$science-25)/(50)*5
 
-# 重點來了，參考R/images
+# 參照 R/images/RVisualization02ggplot2-2.png
 > plot(~read + math, hsb, col=col.sex, pch=pch.schtyp, cex=cex.science)
 # col得到的是男生給藍色女生給粉色
 # pch設定是資料點的圖案，1代表空心圓，19代表實心圓
