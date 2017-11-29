@@ -125,3 +125,15 @@ answer01 <- local({
 # 4個欄位兩兩成對的散佈圖(read, write, math, science)
 # 參照 RVisualization03ggplot2-ggpairs().png
 > ggpairs(hsb, 7:10)
+
+
+# HW
+# 已有個`population`資料
+> p <- population
+> tb1 <- group_by(p, age) %>% summarise(much = sum(count))
+> g <- ggplot(tb1,aes(age, much))
+> g + geom_line() + geom_point()
+# 有線又有點
+# tb1很重要，如果直接跑資料會超久=__=
+
+
