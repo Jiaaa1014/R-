@@ -25,7 +25,15 @@ File -> Reopening with Encoding...
 
 
 ## 參考
-### 外部資源
+### 顏色
 
 * [R语言中的色彩和调色板](http://iccm.cc/colors-and-palettes-in-r-language/)
 * [R语言绘图设备](http://blog.csdn.net/hongweigg/article/details/45242383)
+
+### 繪圖函數
+* [常用的 R 繪圖程式](http://web.ntpu.edu.tw/~cflin/Teach/R/R06EN06Graphics.pdf)
+
+> 例如：
+ * 高階繪圖函數：`plot`,`hist`, `pie`, `dotchart`, `barplot`, `boxplot`
+ * 低階繪圖函數：`points`, `lines`, `legend`
+  
