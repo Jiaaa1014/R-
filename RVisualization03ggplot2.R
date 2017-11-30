@@ -12,12 +12,12 @@
 # 畫上直條圖
 > g + geom_bar()
 # 之所以先建立`g`物件，是因為這個物件裡面的東西可以傳入`geom_bar()`的參數
-# `infert`傳入`geom_bar()`第2個`data`參數，`aes(x = education)`傳入第1個`mapping`參數
+# `infert`傳入`geom_bar()`第2個`data`參數，`aes()`傳入第1個`mapping`參數
 
 # 使用`fill`預設調色盤找到`education`填色
 > g + geom_bar(aes(fill = education))
 
-# 但`infert`裡面沒有`purple`欄位，只好用預設的填滿
+# `infert`裡面沒有欄位的值是`purple`，只好用預設調色的填滿
 > g + geom_bar(aes(fill = "purple"))
 
 
@@ -54,7 +54,7 @@ answer01 <- local({
 # `x, y, fill, group, size ,color, alpha, linetype`
 
 # 起初沒有設置y的單位以至於y軸呈現男女皆是1
-> ggplot(answer01, aes(x = sex)) + geom_bar()
+> ggplot(answer01, aes(sex)) + geom_bar()
 # 設置y要放甚麼因子
 # `geom_bar()`前2參數前面的`ggplot()`以給予
 #             第3參數`stat`遇到問題了，之前沒有需要這個是因為只要count一個x因子
@@ -73,12 +73,14 @@ answer01 <- local({
 # 性別、學校類別為分類計算數學成績
 > dat2 <- summarise(group_by(hsb, sex, schtyp), math.avg = mean(math))
 > g <- ggplot(dat2, aes(sex, math.avg, fill = schtyp))
-# y軸照著數學平均畫，然後兩者的性別(大組)裡面的公私立學校分開化長條圖
+# 4條長條
 > g2 <- g + geom_bar(stat = "identity", position = "dodge")
-# 限定y軸數值，讓比較更明顯
+# 限定y軸值，讓比較更明顯
 > g2 + coord_cartesian(ylim=c(40,60))
 
 # `dotchart`對應到`ggplot2`的`geom_point()`
+# `size`放`aes()`中會沒有反應，只是要外部確認點點尺寸和`aes()`無關
+# 在L102，是因為`size`變動是與自然成績有關係得所以放在`aes()`裏頭 
 > g3 <- g + geom_point(aes(color = schtyp), size = 10)
 # 水平呈現
 > g3 + coord_flip()
@@ -96,14 +98,15 @@ answer01 <- local({
 > g + geom_point()
 # 參照 R/images/RVisualization03ggplot2-1.png
 # science成績越高，圖例越大；以圖例作為公私立學校；以顏色作為性別分辨
+# 參照 R/images/RVisualization03ggplot2-1.png
 > g + geom_point(aes(size = science, pch = schtyp, color = sex))
 
 
 # 自己做調色
 > cb7 <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 # 試看看預設版本
-> g <- ggplot(hsb, aes(x = sex, fill = race)) + geom_bar()
-# 用這個`scale_fill_manual()`來改
+> g <- ggplot(hsb, aes(sex, fill = race)) + geom_bar()
+# 使用`scale_fill_manual()`來改
 > g + scale_fill_manual(values=cb7)
 # 轉換顏色風格
 > g + theme_minimal()
@@ -113,11 +116,15 @@ answer01 <- local({
 > dst <- tempfile(fileext = ".png")
 > ggsave(dst)
 
+# 其實可以直接命名儲存，存到的是當前使用資料夾，以`getwd()`查詢
+> ggsave("name.png")
 
-# 這樣就變成個別的族群
+
+# 對每個族群都做一張，共4張
 # 參照 R/images/RVisualization03ggplot2-facetGrid().png
-> g + facet_grid(.~ race)
-
+> g + facet_grid(. ~ race)
+# 變成每個族群分別再分性別，有8張
+> g + facet_grid(sex ~ race)
 
 # 安裝`GGally`套件，並載入
 > check_then_install("GGally", "1.0.1")
@@ -128,38 +135,59 @@ answer01 <- local({
 
 
 #################################################
-# HW01
-# 已有個`population`資料
+
+# 已有個`population`資料，直接縮寫省的一直重複打
 > p <- population
+
+###### HW01 ######
 > tb1 <- group_by(p, age) %>% summarise(much = sum(count))
-> g <- ggplot(tb1,aes(age, much))
-> g + geom_line() + geom_point()
+> g <- ggplot(tb1, aes(age, much) + geom_line() + geom_point()
 # 有線又有點
 # tb1很重要，如果直接跑資料會超久=__=
 
+  g <-
+    group_by(population, age) %>%
+    summarise(count = sum(count)) %>%
+    arrange(age) %>%
+    ggplot(aes(x = age, y = count)) +
+    geom_point() + geom_line()
 
 
-# HW02
-> bg <- filter(p, p$village == "留侯里") %>% 
-        select(village, sex, count) %>% 
+###### HW02 ######
+
+# `filter()`應該多加個縣市來過濾
+# 和解答差別是在`group_by()`它是以村里及性別作為分類，得到的tibble為2 * 3
+# 畫出來會有差別
+> bg <- filter(p, site_id =="桃園市八德區", village == "大仁里") %>% 
         group_by(sex) %>%
-        summarise(sum(count))
-
-> names(bg) <- c("sex", "count")
+        summarise(count = sum(count))
 # `width = 1`填滿(變成直方圖形式)，加上哪一里
-> ggplot(bg, aes(sex, count, fill=sex)) + geom_bar(stat="identity", width = 1 ) + labs(title="留侯里")
+> ggplot(bg, aes(sex, count, fill=sex)) + geom_bar(stat="identity", width = 1 ) + labs(title="大仁里")
 # https://stackoverflow.com/questions/32941670/width-and-gap-of-geom-bar-ggplot2
 
+# 正解
+ g <-
+    filter(population, site_id == "新北市", village == "留侯里") %>%
+    group_by(village, sex) %>%
+    summarise(count = sum(count)) %>%
+    ggplot(aes(x = village, y = count, fill = sex)) +
+    geom_bar(position = "dodge", stat = "identity")
 
 
-# HW03
-> myPlace <- filter(p, substring(site_id,1,6) =="桃園市八德區", village == "大仁里")
-> allage <- select(myPlace,age, sex, count)              
-> ggplot(allage, aes(age, count, color=sex)) + geom_line() + geom_point()
+
+
+###### HW03 ######
+> myPlace <- filter(p, site_id =="桃園市八德區", village == "大仁里") %>%
+             ggplot( aes(age, count, color = sex)) + geom_line() + geom_point()
+# 正解
+ g <-
+    filter(population, site_id == .hw_description[4], village == .hw_description[5]) %>%
+    ggplot(aes(x = age, y = count, color = sex)) +
+    geom_point() + geom_line()
 
 
 
-# HW04 沒寫好累
+###### HW04 ###### 
 # 桃園與新北
 # 把`aes(color = city)`去掉，會把桃園新北的點點都串成一條
  >  g <-
