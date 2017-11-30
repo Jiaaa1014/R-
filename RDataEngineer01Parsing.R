@@ -100,63 +100,28 @@ pirate_path <- "C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses
 pirate_info <- readLines(file(pirate_path, encoding = "BIG5"))
 
 
-pirate_info_key_value <- {
-  .delim <- strsplit(pirate_info[2], "")[[1]][3]
-  strsplit(pirate_info, .delim)
-}
 
-# 我們需要的欄位名稱是「經緯度」，
-pirate_info_key <- {
-  sapply(pirate_info_key_value, "[", 1)
-}
+.dot <- strsplit(pirate_info[2], "")[[1]][3]
 
-stopifnot(class(pirate_info_key) == "character")
+allChildren <-strsplit(pirate_info, .dot)
+
+
+# 找老大是"經緯度"字串
+longAndLat <- sapply(allChildren, "[", 1)
 
 # 是否為經緯度字串
-pirate_is_coordinate <- {
-  pirate_info_key == pirate_info_key[8]
-}
+pirate_is_coordinate <- longAndLat == longAndLat[8]
 
-stopifnot(class(pirate_is_coordinate) == "logical")
-stopifnot(sum(pirate_is_coordinate) == 11)
 
-# 接著我們可以利用`pirate_is_coordinate`和`pirate_info_key_value`，
-# 找出所有的經緯度資料。
-# 請把這個資料存到變數`pirate_coordinate_raw`中，這將會是個長度為11的字串向量。
-pirate_coordinate_raw <- {
-  sapply(pirate_info_key_value, "[", 2)[pirate_is_coordinate]
-}
+# 經緯度數值都是在每組的排行老二
+# 再以`pirate_is_coordinate`過濾
+pirate_coordinate_raw <- sapply(allChildren, "[", 2)[pirate_is_coordinate]
 
-stopifnot(class(pirate_coordinate_raw) == "character")
-stopifnot(length(pirate_coordinate_raw) == 11)
-
-# 切割出來要數字
+# 切割數值
 # 緯度
-pirate_coordinate_latitude <- {
-  as.integer(substring(pirate_coordinate_raw, 3, 4))
-}
-stopifnot(class(pirate_coordinate_latitude) == "integer")
-stopifnot(length(pirate_coordinate_latitude) == 11)
-stopifnot(sum(pirate_coordinate_latitude) == 43)
-
+latitude <- as.integer(substring(pirate_coordinate_raw, 3, 4))
 # 經度
-pirate_coordinate_longitude <- {
-  as.integer(substring(pirate_coordinate_raw, 12, 14))
-}
-stopifnot(class(pirate_coordinate_longitude) == "integer")
-stopifnot(length(pirate_coordinate_longitude) == 11)
-stopifnot(sum(pirate_coordinate_longitude) == 1151)
+longitude <- as.integer(substring(pirate_coordinate_raw, 12, 14))
 
-pirate_df <- data.frame(
-  latitude = pirate_coordinate_latitude,
-  longitude = pirate_coordinate_longitude
-)
 
-stopifnot(is.data.frame(pirate_df))
-stopifnot(nrow(pirate_df) == 11)
-stopifnot(ncol(pirate_df) == 2)
-stopifnot(class(pirate_df$latitude) == "integer")
-stopifnot(class(pirate_df$longitude) == "integer")
-stopifnot(sum(pirate_df$latitude) == 43)
-stopifnot(sum(pirate_df$longitude) == 1151)
-
+result_df <- data.frame(latitude, longitude)
