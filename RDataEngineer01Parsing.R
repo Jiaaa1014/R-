@@ -101,9 +101,9 @@ pirate_info <- readLines(file(pirate_path, encoding = "BIG5"))
 
 
 
-.dot <- strsplit(pirate_info[2], "")[[1]][3]
+colon <- strsplit(pirate_info[2], "")[[1]][3]
 
-allChildren <-strsplit(pirate_info, .dot)
+allChildren <-strsplit(pirate_info, colon)
 
 
 # 找老大是"經緯度"字串
