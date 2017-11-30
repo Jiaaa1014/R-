@@ -2,7 +2,7 @@
 
 # 兩種方法安裝，並且載入`ggplot2`
 # check_then_install("ggplot2", "2.0.0")
-> install.packages("ggplots")
+> install.packages("ggplot2")
 > library(ggplot2)
 
 
