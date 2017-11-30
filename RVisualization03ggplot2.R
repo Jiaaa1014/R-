@@ -144,7 +144,8 @@ answer01 <- local({
 > g <- ggplot(tb1, aes(age, much) + geom_line() + geom_point()
 # 有線又有點
 # tb1很重要，如果直接跑資料會超久=__=
-
+              
+# 解答
   g <-
     group_by(population, age) %>%
     summarise(count = sum(count)) %>%
@@ -152,6 +153,9 @@ answer01 <- local({
     ggplot(aes(x = age, y = count)) +
     geom_point() + geom_line()
 
+            
+              
+              
 
 ###### HW02 ######
 
@@ -165,7 +169,7 @@ answer01 <- local({
 > ggplot(bg, aes(sex, count, fill=sex)) + geom_bar(stat="identity", width = 1 ) + labs(title="大仁里")
 # https://stackoverflow.com/questions/32941670/width-and-gap-of-geom-bar-ggplot2
 
-# 正解
+# 解答
  g <-
     filter(population, site_id == "新北市", village == "留侯里") %>%
     group_by(village, sex) %>%
@@ -173,13 +177,14 @@ answer01 <- local({
     ggplot(aes(x = village, y = count, fill = sex)) +
     geom_bar(position = "dodge", stat = "identity")
 
-
-
-
+           
+              
+              
+              
 ###### HW03 ######
 > myPlace <- filter(p, site_id =="桃園市八德區", village == "大仁里") %>%
-             ggplot( aes(age, count, color = sex)) + geom_line() + geom_point()
-# 正解
+             ggplot(aes(age, count, color = sex)) + geom_line() + geom_point()
+# 解答
  g <-
     filter(population, site_id == .hw_description[4], village == .hw_description[5]) %>%
     ggplot(aes(x = age, y = count, color = sex)) +
@@ -187,9 +192,36 @@ answer01 <- local({
 
 
 
+
+
 ###### HW04 ###### 
-# 桃園與新北
-# 把`aes(color = city)`去掉，會把桃園新北的點點都串成一條
+# 桃園與新北              
+> ageRatio <- mutate(p, city = substring(site_id, 1, 3))  %>%
+              filter(city == "桃園市" | city == "新北市") %>%
+              group_by(city) %>%
+              mutate(總人數 = sum(count), 比例 = count/ 總人數) %>%
+              group_by(age, city) %>% 
+              summarise(RATIO = sum(比例))
+> ageRatio
+# A tibble: 202 x 3
+# Groups:   age [?]
+     age   city       RATIO
+   <int>  <chr>       <dbl>
+ 1     0 桃園市 0.010381426
+ 2     0 新北市 0.008324091
+ 3     1 桃園市 0.009857155
+ 4     1 新北市 0.009059488
+ 5     2 桃園市 0.008980995
+ 6     2 新北市 0.008096168
+ 7     3 桃園市 0.010846812
+ 8     3 新北市 0.009545807
+ 9     4 桃園市 0.009531385
+10     4 新北市 0.008013310
+# ... with 192 more rows                            
+# 畫畫，把`color = city`去掉，會把桃園新北的點點都串成一條
+> ggplot(ageRatio, aes(age, RATIO, color = city)) + geom_line() + geom_point()
+              
+# 解答              
  >  g <-
       mutate(population, city = substring(site_id, 1, 3)) %>%
       filter(city %in% c("桃園市", "新北市")) %>%
@@ -199,4 +231,5 @@ answer01 <- local({
       mutate(ratio = count / sum(count)) %>%
       ggplot(aes(x = age, y = ratio, color = city)) +
       geom_point() + geom_line()
+              
 #################################################
