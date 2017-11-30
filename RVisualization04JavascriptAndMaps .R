@@ -74,6 +74,7 @@ Using math.avg as value column: use value.var to override.
 > install.packages("ggmap")
 > library(ggmap)
 
+
 # 抓地圖，參數1是地點，參數2是範圍大小，(3, 21) -> (世界, 建築物)
 > twmap <- try(get_map("Taiwan", 3, silent = TRUE))
 # 上面失敗了換下面
@@ -81,34 +82,14 @@ Using math.avg as value column: use value.var to override.
 > twmap
 1280x1280 terrain map image from Google Maps.  see ?ggmap to plot it.
 
-# 建立`ggplot`
+# 建立`ggplot`物件，建立畫板
+# 到issues找解決脈絡
 g <- ggmap(twmap, extent = "device")
 錯誤: GeomRasterAnn was built with an incompatible version of ggproto.
 Please reinstall the package that provides this extension.
 
-
-bug脈絡
-@@@ 需要重新下載`ggmap` @@@
-# install_github("dkahle/ggmap")
-# Error in install_github("dkahle/ggmap") : 沒有這個函數 "install_github"
-
-# > check_then_install
-# function(pkg_name, pkg_version) {
-#          if (!suppressWarnings(suppressMessages(require(pkg_name, character.only = TRUE)))) utils::install.packages(pkg_name) else {
-#            if (packageVersion(pkg_name) < package_version(pkg_version)) utils::install.packages(pkg_name)
-#          }
-#        }
-# <environment: 0x0000000020ebac78>
-
-# 有兩種下載方式 
-# From CRAN: install.packages("ggmap")
-# From Github: devtools::install_github("dkahle/ggmap")
-
-# 第一種被課程寫入到check_then_install()
-# 解開困惑了！
-
-# 因為第一種用過了還是不行
-# 所以使用第二種 
-# > devtools::install_github("dkahle/ggmap")
-
+# 把地震地點標上地圖
+> g + geom_point(aes(longitude, latitude), eq)
+# 點點依照地震規模調整大小
+> g + geom_point(aes(longitude, latitude, size = mag), eq)
 
