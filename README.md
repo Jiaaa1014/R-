@@ -20,10 +20,6 @@ File -> Reopening with Encoding...
 
 
 
-
-
-
-
 ## 參考
 ### 顏色
 
@@ -34,8 +30,12 @@ File -> Reopening with Encoding...
 
 * [常用的 R 繪圖程式](http://web.ntpu.edu.tw/~cflin/Teach/R/R06EN06Graphics.pdf)
 
-> 例如：
  * 高階繪圖函數: `plot`,`hist`, `pie`, `dotchart`, `barplot`, `boxplot`
  * 低階繪圖函數: `points`, `lines`, `legend`
- * 最詳盡的`ggplot2`: [ggplot2](http://ggplot2.tidyverse.org/index.html)
- * `ggplot`[圖解](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+ 
+ * [`ggplot2`套件官方網站](http://ggplot2.tidyverse.org/index.html)
+ * [`ggplot2`精要圖](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+
+### 直觀、好用data.frame操作函數
+
+ *  [`dplyr`套件官方網站](http://dplyr.tidyverse.org/reference/index.html)
