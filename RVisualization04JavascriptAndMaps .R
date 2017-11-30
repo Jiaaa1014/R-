@@ -77,10 +77,19 @@ Using math.avg as value column: use value.var to override.
 
 # 抓地圖，參數1是地點，參數2是範圍大小，(3, 21) -> (世界, 建築物)
 > twmap <- try(get_map("Taiwan", 3, silent = TRUE))
+Error in get_map("Taiwan", 3, silent = TRUE) : 
+  unused argument (silent = TRUE)
+# 通常會失敗
+
 # 上面失敗了換下面
 > twmap <- readRDS(.get_path("twmap.Rds"))
 > twmap
 1280x1280 terrain map image from Google Maps.  see ?ggmap to plot it.
+
+# 這行就額外重要
+if (class(twmap)[1] == "try-error") twmap <- readRDS(.get_path("twmap.Rds"))
+
+
 
 # 建立`ggplot`物件，建立畫板
 # 到issues找解決脈絡
@@ -92,4 +101,73 @@ Please reinstall the package that provides this extension.
 > g + geom_point(aes(longitude, latitude), eq)
 # 點點依照地震規模調整大小
 > g + geom_point(aes(longitude, latitude, size = mag), eq)
+
+
+
+
+
+
+
+
+
+
+# 廢話太多的自解
+pirate_path <- "C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses\\DataScienceAndR\\03-RVisualization-04-Javascript-And-Maps\\pirate-info-2015-09.txt"
+pirate_info <- readLines(file(pirate_path, encoding = "BIG5"))
+
+colon <- strsplit(pirate_info[2], "")[[1]][3]
+
+allChildren <-strsplit(pirate_info, colon)
+
+
+# 找老大是"經緯度"字串
+longAndLat <- sapply(allChildren, "[", 1)
+# 是否為經緯度字串
+pirate_is_coordinate <- longAndLat == longAndLat[8]
+
+# 經緯度數值都是在每組的排行老二
+# 再以`pirate_is_coordinate`過濾
+pirate_coordinate_raw <- sapply(allChildren, "[", 2)[pirate_is_coordinate]
+
+# 切割數值
+# 緯度
+latitude <- as.numeric(substring(pirate_coordinate_raw, 3, 4))
+latitudeDbl <- as.numeric(substring(pirate_coordinate_raw, 6, 7)) / 60
+# 經度
+longitude <- as.numeric(substring(pirate_coordinate_raw, 12, 14))
+longitudeDbl  <- as.numeric(substring(pirate_coordinate_raw, 16, 17)) / 60
+
+result_df <- data.frame(latitude = latitude + latitudeDbl, longitude = longitude + longitudeDbl)
+
+twmap <- try(get_map("Taiwan", 3, silent = TRUE))
+library(devtools, ggmap)
+if (class(twmap)[1] == "try-error") twmap <- readRDS(.get_path("twmap.Rds"))
+
+g <- ggmap(twmap, extent = "device")
+g + geom_point(aes(longitude, latitude), result_df)
+
+
+# 參考答案
+# library(dplyr, ggplot2)
+pirate_path <- "C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses\\DataScienceAndR\\03-RVisualization-04-Javascript-And-Maps\\pirate-info-2015-09.txt"
+src <- readLines(file(pirate_path, encoding = "BIG5"))
+
+tmp <- strsplit(src, "：")
+
+# 59個家庭的老大抓起來
+key <- sapply(tmp, "[", 1)
+
+is_target <- key == key[8]
+
+# 有包含數值的字串
+value <- sapply(tmp[is_target], "[", 2)
+
+pirate <- data.frame(
+  lat = substring(value, 3, 4) %>% as.numeric + substring(value, 6, 7) %>% as.numeric / 60,
+  
+  log = substring(value, 12, 14) %>% as.numeric + substring(value, 16, 17) %>% as.numeric / 60)
+
+if (!exists("twmap")) twmap <- readRDS(.get_path("twmap.Rds"))
+g <- ggmap(twmap, extent = "device")
+g + geom_point(aes(log, lat), pirate)
 
