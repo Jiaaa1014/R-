@@ -149,7 +149,7 @@ Simple !
  [6,] "2007" "B.礦業及土石採取業"                "21279"   
 ```
 >
-Two ways
+Two ways to extract matrix from a list
 ```R
 # `matrix`
 > gdp.df.components[5][[1]]
@@ -198,13 +198,6 @@ In the martix, we can use `[row, col]` method to take what we want.
 > gdp.df.components[5][[1]][258]
 [1] "2128517"
  
-```
-```R
-# `matrix`
-> str(gdp.df.components[4][[1]])
- chr [1:86, 1:3] "2010" "2010" "2010" "2010" "2010" "2010" ...
-> str(gdp.df.components[[4]])
- chr [1:86, 1:3] "2010" "2010" "2010" "2010" "2010" "2010" "2010" "2010" "2010" "2010" ...
 ```
 
 # Convert matrix to data.frame
