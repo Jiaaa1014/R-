@@ -170,7 +170,7 @@ character(0)
 
 
 # gdp.split[[1]], [[2]], ..., [[624]]這樣找下去的意思
-這幾個得出來的數字就是長度為1的list index
+# 這幾個得出來的數字就是長度為1的list index
 > (sapply(gdp.split, length) == 1) %>% which
  [1]   5  92 179 266 353 440 527 615 616 617 618 619 620 621 622 623 624
 
@@ -233,14 +233,6 @@ year.index <- (sapply(gdp.split, length) == 1) %>% which %>% head(7)
 [1]   5  92 179 266 353 440 527
 
 
-
-
-
-
-
-
-
-
 #################################################
 library(ggplot2)
 library(dplyr)
@@ -298,3 +290,102 @@ gdp.df[is.na(gdp.df$gdp),]
 ## 拿掉它
 gdp.df <- filter(gdp.df, !is.na(gdp))
 #################################################
+
+
+# 長度為86
+> unique(gdp.df$name)
+ [1] "A.農、林、漁、牧業"                "AA.農耕業"                         "AB.畜牧業"                         "AC.林業"                          
+ [5] "AD.漁業"                           "B.礦業及土石採取業"                "C.製造業"                          "CA.食品製造業"                    
+ #...
+# 總共625筆List
+# 625 - (前4 + 後12)純粹資料敘述 - 7個是西元年 = 602
+# 每年有86組產業資料 * 7 = 602
+
+
+# 另一筆資料，有些是數字有些是字母的行業標示，共301筆
+> unique(power.df$id)
+  [1] "011"  "012"  "013"  "01"   "021"  "022"  "02"   "031"  "032"  "03"   "04"  
+ [12] "A."   "05"   "06"   "07"   "081"  "082"  "083"  "084"  "089"  "90"   "91"  
+ #...
+
+# `%<>%`將東西丟給函數運算，最後再丟回去
+# `fixed = TRUE`代表要切個的東西就是字面上的意思，若設定為`FALSE`則第2個參數當作正規表達式
+
+# > strsplit(gdp.df[1,]$name, '.', fixed = TRUE)
+# [[1]]
+# [1] "A"                "農、林、漁、牧業"
+# 所以`sapply`作用的地方是gdp.df$name[[1]],[[2]]...[[602]]依序割完602個`chr`，再拿出每個list的第1個`[1]`
+> gdp.df %<>% mutate(id = strsplit(name, ".", fixed = TRUE) %>% sapply("[", 1))
+> head(gdp.df)
+  year               name    gdp id
+1 2007 A.農、林、漁、牧業 191886  A
+2 2007          AA.農耕業 139746 AA
+3 2007          AB.畜牧業  19357 AB
+4 2007            AC.林業   1935 AC
+5 2007            AD.漁業  30848 AD
+6 2007 B.礦業及土石採取業  21279  B
+
+> unique(gdp.df$id)
+ [1] "A"                   "AA"                  "AB"                  "AC"                 
+ [5] "AD"                  "B"                   "C"                   "CA"                 
+ [9] "CB"                  "CC"                  "CD"                  "CE"      
+ #...
+
+`使用nchar()`過濾上述的字串為1的
+> gdp.df2 <- filter(gdp.df, nchar(id) == 1)
+
+> unique(gdp.df2$id)
+ [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
+
+
+#################################################
+# 只需要字母開頭的(合計好幾個行業)的統計
+# 將民國轉換為西元
+power.df2 <- filter(power.df, grepl("^[A-Z]", id)) %>% 
+              mutate(year = year + 1911, id = gsub(".", "", id, fixed = TRUE) )
+#################################################
+
+
+# 簡單明瞭的索引，例如K為公共行政業合計，有好多筆，則只拿1筆
+> distinct(power.df2, id, name)
+> distinct(gdp.df2, id, name)
+
+# 但兩者的英文id不代表視同一個產業，gdp劃分比較細
+
+# 已儲存的變數`translation`
+> translation
+   power         gdp
+1      A           A
+2      B           B
+3      C           C
+4      D         D+E
+5      E           F
+6      F         G+I
+7      G         H+J
+8      H         K+L
+9    I+J M+N+P+Q+R+S
+10     K           O
+
+
+> translation.power <- local({
+  retval <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10)
+  names(retval) <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K")
+  retval
+})
+
+> translation.power
+ A  B  C  D  E  F  G  H  I  J  K 
+ 1  2  3  4  5  6  7  8  9  9 10 
+
+
+> translation.gdp <- local({
+  translation.gdp <- c(1, 2, 3, 4, 4, 5, 6, 7, 6, 7, 8, 8, 9, 9, 10, 9, 9, 9, 9)
+  names(translation.gdp) <- head(LETTERS, length(translation.gdp))
+  translation.gdp
+})
+
+> translation.gdp
+ A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S 
+ 1  2  3  4  4  5  6  7  6  7  8  8  9  9 10  9  9  9  9 
+
+
