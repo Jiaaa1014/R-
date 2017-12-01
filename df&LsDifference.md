@@ -1,6 +1,5 @@
 ## Pick up data.frame selected data 
 
-
 ```R
 
 library(ggplot2)
@@ -135,7 +134,7 @@ List of 7
  $ : chr [1:86, 1:3] "2012" "2012" "2012" "2012" ...
  $ : chr [1:86, 1:3] "2013" "2013" "2013" "2013" ...
 ```
->
+> 
 Simple !
 ```R
 # `list`
@@ -150,6 +149,7 @@ Simple !
  [6,] "2007" "B.礦業及土石採取業"                "21279"   
 ```
 >
+Two ways
 ```R
 # `matrix`
 > gdp.df.components[5][[1]]
@@ -160,21 +160,12 @@ Simple !
  [4,] "2011" "AC.林業"                           "2018"    
  [5,] "2011" "AD.漁業"                           "37894"   
  [6,] "2011" "B.礦業及土石採取業"                "17174"   
+
+> str(gdp.df.components[4][[1]])
+ chr [1:86, 1:3] "2010" "2010" "2010" "2010" "2010" "2010" ...
+> str(gdp.df.components[[4]])
+ chr [1:86, 1:3] "2010" "2010" "2010" "2010" "2010" "2010" "2010" "2010" "2010" "2010" ...
  
- > gdp.df.components[5][[1]][1]
-[1] "2011"
-> gdp.df.components[5][[1]][88]
-# gdp.df.components[[5]][88]
-[1] "AA.農耕業"
- > gdp.df.components[5][[1]][87]
-# gdp.df.components[[5]][87]
-[1] "A.農、林、漁、牧業"
-
-# the last one in 86 * 3 matrix
-> gdp.df.components[5][[1]][258]
-# gdp.df.components[[5]][258]
-[1] "2128517"
-
 > gdp.df.components[[4]]
       [,1]   [,2]                                [,3]      
  [1,] "2010" "A.農、林、漁、牧業"                "224828"  
@@ -184,8 +175,8 @@ Simple !
  [5,] "2010" "AD.漁業"                           "34773"   
  [6,] "2010" "B.礦業及土石採取業"                "18415"   
 ```
->
-In the martix, we can use `[row, col]` method to take what we want.
+In the martix, we can use `[row, col]` method to take what we want.  
+
 ```R
 # `character`
 > gdp.df.components[[4]][1,]
@@ -193,11 +184,25 @@ In the martix, we can use `[row, col]` method to take what we want.
 [3] "224828"
 > gdp.df.components[[4]][1,3]
 [1] "224828"
+> gdp.df.components[[4]][173]
+[1] "224828"
+
+> gdp.df.components[5][[1]][1]
+[1] "2011"
+> gdp.df.components[5][[1]][87]
+# gdp.df.components[[5]][87]
+[1] "A.農、林、漁、牧業"
+
+# the last one in 86 * 3 matrix
+# gdp.df.components[[5]][258]
+> gdp.df.components[5][[1]][258]
+[1] "2128517"
  
 ```
-
-gdp.df.components[[4]] == gdp.df.components[4][[1]]
+```R
+# `matrix`
 > str(gdp.df.components[4][[1]])
  chr [1:86, 1:3] "2010" "2010" "2010" "2010" "2010" "2010" ...
 > str(gdp.df.components[[4]])
  chr [1:86, 1:3] "2010" "2010" "2010" "2010" "2010" "2010" "2010" "2010" "2010" "2010" ...
+```
