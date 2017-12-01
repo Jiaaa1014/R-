@@ -389,3 +389,37 @@ power.df2 <- filter(power.df, grepl("^[A-Z]", id)) %>%
  1  2  3  4  4  5  6  7  6  7  8  8  9  9 10  9  9  9  9 
 
 
+# 轉到RStudio時
+# 到了assign`power.df`失敗
+> install.packages("bindr")
+
+
+#################################################
+# 這題好難～～
+power.df3 <-
+  power.df2 %>%
+  mutate(id2 = translation.power[id]) %>%
+  filter(!is.na(id2)) %>%
+  group_by(year, id2) %>%
+  summarise(power = sum(power), name = paste(name, collapse = ","))
+
+gdp.df3 <- 
+  gdp.df2 %>%
+  mutate(id2 = translation.gdp[id]) %>%
+  group_by(year, id2) %>%
+  summarise(gdp = sum(gdp))
+
+power.gdp <- inner_join(power.df3, gdp.df3, c("year", "id2")) %>%
+  mutate(eff = gdp / power) %>%
+  as.data.frame()
+stopifnot(isTRUE(all.equal(class(power.gdp), "data.frame")))
+stopifnot(isTRUE(all.equal(nrow(power.gdp), 70)))
+stopifnot(isTRUE(all.equal(ncol(power.gdp), 6)))
+stopifnot(isTRUE(all.equal(colnames(power.gdp), c("year", "id2", "power", "name", "gdp", "eff"))))
+stopifnot(isTRUE(all.equal(rownames(power.gdp), paste(1:70))))
+stopifnot(isTRUE(all.equal(sum(power.gdp$year), 140700)))
+stopifnot(isTRUE(all.equal(sum(power.gdp$id2), 385)))
+stopifnot(!is.unsorted(power.gdp$year * 10 + power.gdp$id2))
+stopifnot(isTRUE(all.equal(sum(power.gdp$gdp), 94279743)))
+stopifnot(power.gdp$eff == power.gdp$gdp / power.gdp$power)
+#################################################
