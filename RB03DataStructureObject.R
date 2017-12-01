@@ -1,4 +1,4 @@
-# 美個變數都是物件
+# 每個變數都是物件
 # 最小的單位就是向量
 # 兩個重要屬性：`mode`, `length`
 # mode()會回傳`logical`, `integer`, `numeric`, `complex`, `character`, `raw`
