@@ -118,7 +118,7 @@ We have only column.. so the range we chose is safe
  $ gdp : num  191886 139746 19357
 ```
 
-## `gdp.df.component`
+### `gdp.df.component`
 **It's `list` type.**
 ![gdp.df.components](images/gdp.df.components.png)
 
