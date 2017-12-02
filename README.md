@@ -38,4 +38,9 @@ File -> Reopening with Encoding...
 
 ### 直觀、好用data.frame操作函數
 
- *  [`dplyr`套件官方網站](http://dplyr.tidyverse.org/reference/index.html)
+ * [`dplyr`套件官方網站](http://dplyr.tidyverse.org/reference/index.html)
+ 
+ 
+### 文章
+* [Pipe Operators in R](http://chingchuan-chen.github.io/posts/2016/07/10/pipe-operators-in-R)
+* [資料整理套件介紹 - 序章 magrittr](https://www.ptt.cc/bbs/R_Language/M.1437452331.A.CD1.html)
