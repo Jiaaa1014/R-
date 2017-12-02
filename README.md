@@ -15,11 +15,14 @@ File -> Reopening with Encoding...
 
 * [建立向量，簡單命名](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro01-04.R#L2)
 * [資料夾、檔案的操作](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro01-04.R#L23)
-* [rep() - (time, each)參數的差別](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro01-04.R#L89)
-* [paste() - (collapse, sep)參數的差別](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro01-04.R#L118)
-
-
-
+* [`rep()` - (time, each)參數的差別](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro01-04.R#L89)
+* [`paste()` - (collapse, sep)參數的差別](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro01-04.R#L118)
+* [小試常態分布](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro05-08.R#L9)
+* [詳細常態分布](https://github.com/programmermagazine/201303/blob/master/source/article3.md)
+>
+* [`[]`丟條件抓資料](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro05-08.R#L33)
+* [將資料型態`matrix`變成`data.frame`，`colnames`, `rownames`命名](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro05-08.R#L122)
+* [`&` 以及 `&&`差別](https://github.com/Jiaaa1014/R-/blob/master/R_programming/R_Pro05-08.R#L159)
 ## 參考
 ### 顏色
 
@@ -36,12 +39,11 @@ File -> Reopening with Encoding...
  * [`ggplot2`套件官方網站](http://ggplot2.tidyverse.org/index.html)
  * [`ggplot2`精要圖](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 
-### 直觀、好用data.frame操作函數
+### 直觀、好用抓資料來操作的函數
 
  * [`dplyr`套件官方網站](http://dplyr.tidyverse.org/reference/index.html)
  
- 
-### 文章
+### Pipe Operators
 * [Pipe Operators in R](http://chingchuan-chen.github.io/posts/2016/07/10/pipe-operators-in-R)
 * [資料整理套件介紹 - 序章 magrittr](https://www.ptt.cc/bbs/R_Language/M.1437452331.A.CD1.html)
-
+* [magrittr`套件官方網站](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
