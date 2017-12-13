@@ -1,5 +1,13 @@
-# 矩陣
-# 矩陣或陣列 = 向量 + dim()
+# matrix(), dim(), array()
+# pure vector: dim() <- NULL
+# cbind(), rbind()
+# matrix %*% matrix
+# transition matrix: t()
+# 單位矩陣: dig()
+# 反矩陣: solve()
+## A %*% x = b, x = solve(A,b)
+
+
 
 x <- matrix(1:18, 6, 3)
 > x
