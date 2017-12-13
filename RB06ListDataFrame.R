@@ -1,3 +1,6 @@
+# lm model
+# x[[1]] == x[["coefficients"]] == x$coefficients
+
 # 分析資料用的回歸是以`list`作為資料結構基底的
 # list就是R物件的向量，有順序性
 
