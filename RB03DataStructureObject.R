@@ -1,7 +1,7 @@
-# 每個變數都是物件
-# 最小的單位就是向量
-# 兩個重要屬性：`mode`, `length`
-# mode()會回傳`logical`, `integer`, `numeric`, `complex`, `character`, `raw`
+# lm(y ~ x, data)
+# mode(), attributes(g)
+# class(x) == attr(x, "class")
+# x[[1]] == x[["coefficients"]]
 
 # `list()`，物件集結在一起的向量
 
