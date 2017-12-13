@@ -1,3 +1,7 @@
+# vignette(package = "")
+# fromJSON(x1, simplifyVector = FALSE), fromJSON(x1, simplifyVector = TRUE)
+# rm(), all.equal(), isTRUE()
+
 # 安裝、載入`jsonlite`套件
 > check_then_install("jsonlite", "0.9.19")
 > library(jsonlite)
