@@ -1,3 +1,14 @@
+# drv <- dbDriver("SQLite")
+# db <- dbConnect(drv, db_path)
+# dbWriteTable(db, newName, origin), 
+### append = TRUE that maybe concat the same info, overwrite = TRUE delete the old one.
+# dbReadTable(db, newName)
+# dbListTables(db), to list the data in the database.
+# dbBegin(), dbCommit(), dbRollback()
+# dbDisconnect(db)
+# dbRemoveTable(db, "...")
+
+
 # 資料庫，通常有指關聯式資料庫(Relational Database)
 # 像是會計系統、購票系統就是常應用的例子
 
@@ -126,9 +137,9 @@ attr(,"package")
 
 # 在這之後，即使重連線CO2表格不會回復了！
 # 除了中斷連線，我們也可以主動使用`dbRollback(db)`指令，將資料庫的狀態復原至我們執行`dbBegin(db)`的時間點。
-
-# `dbBegin()`，之後的變更要執行到`dbCommit()`才會「承認」
 # 使用`dbRollback()`會自動回復到`dbBegin()`時刻
+# `dbBegin()`，之後的變更要執行到`dbCommit()`才會「承認」
+
 
 
 
