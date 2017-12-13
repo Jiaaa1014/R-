@@ -1,6 +1,6 @@
-# Factor是向量物件
-# 因子：男女，家鄉
-# 用來做分類的...
+# levels(), str()
+# it can be compared if ordered = TRUE: factor(data, ordered = TRUE, levels = c(...))
+
 
 > blood_type
  [1] "B"  "A"  "A"  "O"  "AB" "O"  "A"  "AB" "O"  "AB" "O"  "AB" "A" 
