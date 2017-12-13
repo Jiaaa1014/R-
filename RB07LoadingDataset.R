@@ -1,3 +1,22 @@
+# data(dataName, package = ""), file.info(path)
+
+# check the BOM(byte-order mark): 
+### readBin(lvr_land.path, what = "raw", n = 3)
+
+# line by line
+### readLines(file(lvr_land.path, encoding = "BIG5"), n = 5)
+
+# in one line
+### lvr_land.txt <- stringi::stri_encode(lvr_land.bin, "BIG-5", "UTF-8")
+### solved it: read.table(textConnection(lvr_land.txt), header = TRUE, sep = ",")
+### if MBCS = TRUE & UTF-8 = FALSE
+### read.table(get_text_connection_by_l10n_info(lvr_land.txt), header = TRUE, sep = ",")
+
+# beautify (data.frame form)
+### read.table(file(lvr_land.path, encoding = "BIG5"), header = TRUE, sep = ",")
+
+
+
 # 內建資料集
 # 分析東西之前，要拉東西來用
 # 像是這樣，檢視所有的資料集
