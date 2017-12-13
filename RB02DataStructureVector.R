@@ -1,3 +1,13 @@
+# c(...), min(), max(), sum(), length(), mean(), sqrt() 
+# variance: sum((x-mean())^2) / (length(x) - 1), var(x) 
+# standard deviation: sd(x)
+# ordering: sort(x, decresing = FALSE, ...)
+# seq(): from, to, by, length.out, along.with
+# rep(): time, each
+# check if lose value: is.na()
+# paste()--> default space; paste0()--> no space
+
+
 # 建立向量
 x <- c(10.4, 5.6, 3.1, 6.4)
 
