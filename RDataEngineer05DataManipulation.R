@@ -1,3 +1,13 @@
+# filter(data, conditions)
+# arrange(data, params), desc(params) => from max to min
+# min(data, na.rm = TRUE), NA should not be compared.
+# select(data, params)
+# distinct(select()), exclude the repeated value
+# mutate(data, colnames = ???), new column
+# summarise()
+# sample_n(), sample_frac()
+# group_by(data, categoryis?)
+
 # 前面的DataBase單元有介紹dbWriteTable()可以來自於不同的套件
 > help.search("dbWriteTable")
 # RSQLite, DBI，第3個就是來自dylr套件
