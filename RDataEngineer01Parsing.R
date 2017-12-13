@@ -1,3 +1,14 @@
+# readLines(file(hospital_path, encoding = "BIG5"), n = 6)
+# hospital <- read.table(file(hospital_path, encoding = "BIG5"), header = TRUE, sep = "," )
+# as.character(), as.integer()
+# substring(data, startIndex, endIndex(excluded))
+# strsplit(data, cutBy??)
+# lapply(tmp, "[", 1), tmp[[1]][1], tmp[[2]][1], ..., tmp[[n]][1] 
+# unlist(tmp)
+# lapply() + unlist() = sapply()
+# data.frame()
+
+
 # 已有資料放在`hospital_path`
 > hospital_path
 [1] "C:\\Users\\Jiaaa\\Documents\\R\\win-library\\3.4\\swirl\\Courses\\DataScienceAndR\\02-RDataEngineer-01-Parsing\\DataGov25511.csv"
