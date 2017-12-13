@@ -1,3 +1,8 @@
+# xml::read_xml(), xml_find_all(), xml_text(), xml_parent(), xml_find_one()
+# xml_contents(), xml_children()
+# xml_attrs()
+
+browseURL(tender_path, browser = "C:/Program Files/Mozilla Firefox/firefox.exe")
 # XML及HTML都是由SGML而來的
 # 相較於HTML，XML應用方式更自由
 
