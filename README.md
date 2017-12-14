@@ -47,5 +47,5 @@ File -> Reopening with Encoding...
 * [資料整理套件介紹 - 序章 magrittr](https://www.ptt.cc/bbs/R_Language/M.1437452331.A.CD1.html)
 * [magrittr`套件官方網站](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
 
-### 各種分佈
-
+### 各種統計分佈
+* [統計機率分布函數](http://www.learn-r-the-easy-way.tw/chapters/20)
