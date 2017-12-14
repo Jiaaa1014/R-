@@ -164,7 +164,7 @@ $dim
 # 等於
 > c(TRUE, TRUE, TRUE) & c(TRUE, FALSE, FALSE)
 # 都是
-[1] FALSE FALSE FALSE
+[1] TRUE FALSE FALSE
 
 # `&&`只會比第一個
 > TRUE && c(TRUE, FALSE, FALSE)
@@ -180,7 +180,7 @@ $dim
 > isTRUE(3)
 [1] FALSE
 
-# `xor()`都是FALSE為`TRUE`
+# `xor()`一正一反為`TRUE`
 > xor(5==6, !FALSE)
 [1] TRUE
 
@@ -197,7 +197,4 @@ $dim
 # 只要有1個符合就是TRUE
 > any(ints <0)
 [1] FALSE
-
-
-
 
