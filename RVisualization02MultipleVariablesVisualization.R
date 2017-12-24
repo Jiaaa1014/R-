@@ -1,9 +1,9 @@
 # 沿用`hsb`資料
-Part A：類別欄位 vs.類別欄位的資料視覺化。~L23
-Part B：類別欄位 vs. 類別欄位 vs. 單一數值的資料視覺化。~L60
-Part C：類別欄位 vs. 單一數值的資料視覺化。~L80
-Part D：類別欄位 vs. 數值欄位的資料視覺化。~L94
-Part E：數值欄位 vs. 數值欄位的資料視覺化。~L107
+Part A：類別欄位 vs.類別欄位的資料視覺化。~L23  barplot()
+Part B：類別欄位 vs. 類別欄位 vs. 單一數值的資料視覺化。~L60 barplot()
+Part C：類別欄位 vs. 單一數值的資料視覺化。~L80 barplot(), dotchart()
+Part D：類別欄位 vs. 數值欄位的資料視覺化。~L94 plot(), boxplot(), legend()
+Part E：數值欄位 vs. 數值欄位的資料視覺化。~L107 plot()多種寫法
 Part F：數值欄位 vs. 數值欄位 vs. 類別欄位的資料視覺化。
 
 
@@ -28,6 +28,7 @@ Part F：數值欄位 vs. 數值欄位 vs. 類別欄位的資料視覺化。
 > library(dplyr)
 
 # 以tb1當分4組個別的數學平均
+# dat2 <- group_by(hsb, sex, schtyp) %>% summarise(math.avg=mean(math))
 > dat2 <- summarise(group_by(hsb, sex, schtyp), math.avg=mean(math))
 > dat2
 # A tibble: 4 x 3
@@ -44,8 +45,7 @@ Part F：數值欄位 vs. 數值欄位 vs. 類別欄位的資料視覺化。
 
 # 再將`dat2`轉換回表格型態，使用`xtabs()`
 > tab2 <- xtabs(formula = math.avg ~ sex + schtyp , data = dat2)
-# 等於
-# tab2 <- xtabs(math.avg ~ sex + schtyp, data = dat2)
+# 等於 tab2 <- xtabs(math.avg ~ sex + schtyp, data = dat2)
 > tab2
         schtyp
 sex       private   public
@@ -55,7 +55,6 @@ sex       private   public
 [1] "xtabs" "table"
 # > class(tab1)
 # [1] "table"
-
 # y軸的值在50-58之間，而超過x軸的直接消失
 > barplot(tab2, beside = TRUE, ylim = c(50, 58), xpd = FALSE)
 
@@ -88,9 +87,10 @@ sex       private   public
 > plot(math ~ race, data=hsb)
 
 # 但是現在有`boxplot()`可以用了！！
+# 箱型圖不會出現平均數mean
 # `col`還可以指定顏色
 > boxplot(math ~ schtyp, data=hsb, col=c("darkblue", "gold"))
-# 新增圖例
+# 新增圖例，疊加上去的
 > legend("topleft", c("private", "public"), fill=c("darkblue", "gold"))
 
 
@@ -99,7 +99,7 @@ sex       private   public
 # plot(hsb$math, hsb$read)
 > plot(x=hsb$math, y=hsb$read)
 # 等於(但xy軸標示不同)
-> plot(read ~ math, data=hsb)
+> plot(read ~ math, hsb)
 # 等於(xy對調)
 > plot(~ read + math, data=hsb)
 
