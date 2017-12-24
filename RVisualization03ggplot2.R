@@ -25,7 +25,7 @@
 g <- ggplot(hsb)
 # 只有灰階的長條圖
 > g + geom_bar(aes(x = sex))
-# 以`race`因子來做顏色區別，x軸為性別
+# 以`race`因子來做顏色區別，x軸為性別2條，每條都有四種顏色個別代表族群
 g + geom_bar(aes(x = sex, fill = race))
 # `position = "stack"`是預設值，y軸數量以堆疊方式
 # `dodge`為錯開，兩個性別的族群分開計算，總共8條
@@ -56,7 +56,7 @@ answer01 <- local({
 # 起初沒有設置y的單位以至於y軸呈現男女皆是1
 > ggplot(answer01, aes(sex)) + geom_bar()
 # 設置y要放甚麼因子
-# `geom_bar()`前2參數前面的`ggplot()`以給予
+# `geom_bar()`前2參數前面的`ggplot()`已經給予
 #             第3參數`stat`遇到問題了，之前沒有需要這個是因為只要count一個x因子
 #             因為x, y 都有資料的關係，所以才需要這個"identity"值
 #             告訴我們說，只要拿y的值當作結果就行
@@ -170,11 +170,10 @@ answer01 <- local({
 # https://stackoverflow.com/questions/32941670/width-and-gap-of-geom-bar-ggplot2
 
 # 解答
- g <-
-    filter(population, site_id == "新北市", village == "留侯里") %>%
+ g <- filter(population, site_id == "新北市", village == "留侯里") %>%
     group_by(village, sex) %>%
     summarise(count = sum(count)) %>%
-    ggplot(aes(x = village, y = count, fill = sex)) +
+    ggplot(aes(village, count, fill = sex)) +
     geom_bar(position = "dodge", stat = "identity")
 
            
@@ -182,7 +181,7 @@ answer01 <- local({
               
               
 ###### HW03 ######
-> myPlace <- filter(p, site_id =="桃園市八德區", village == "大仁里") %>%
+> myPlace <- filter(population, site_id =="桃園市八德區", village == "大仁里") %>%
              ggplot(aes(age, count, color = sex)) + geom_line() + geom_point()
 # 解答
  g <-
@@ -196,7 +195,7 @@ answer01 <- local({
 
 ###### HW04 ###### 
 # 桃園與新北              
-> ageRatio <- mutate(p, city = substring(site_id, 1, 3))  %>%
+> ageRatio <- mutate(population, city = substring(site_id, 1, 3))  %>%
               filter(city == "桃園市" | city == "新北市") %>%
               group_by(city) %>%
               mutate(總人數 = sum(count), 比例 = count/ 總人數) %>%
