@@ -1,3 +1,9 @@
+# plot(data, type="")
+# pie(table(data))
+# hist(data)
+# density(data) >>跑出百分位，最大最小平均值
+# plot(density(data))
+
 # `infert`為內建資料，不孕症與流產的關係
 
 > View(infert)
@@ -20,19 +26,20 @@
 # 2. main, sub: 設置標題副標題
 # 3. xlab, ylab: x, y軸的標籤
 # 4. asp: y/x比例
+# 5. xaxt, yaxt: 不要刻度
 
 
 # 如果打不開`plot()`，可能是因為之前執行過`dev.off()`
 # 打開方式：win.graph(), dev.new(), X11()
 
 
-# 點點圖，流產次數為y軸，看不出趨勢
+# 點點圖，自然流產次數為y軸，看不出趨勢，x軸就僅僅是資料index而已
 > plot(spon)
 
 
 # 轉換數據型態，則`spon`列印出來會多個`Levels: 0 1 2`
 > spon <- factor(spon)
-# 直條圖，流產次數在x軸
+# 直條圖，流產次數在x軸，這樣就可以知道不同流產次數的人數
 # 碰到類別(factor)或字串(character)向量時會將數據轉換為y座標
 > plot(spon)
 
@@ -52,10 +59,11 @@ spon
 #     `radius`設置半徑    
 #     `border`設置邊界顏色(8種)
 #     `lty`設置線條樣式(6種)
+
 # 圓餅圖，要先過`table`算過傳給`pie()`
 > pie(table(spon))
 
-# 點點圖， 和起初的`plot(spon)`一樣，看不出來趨勢
+# 點點圖， 和起初的`plot(spon)`一樣，看不出趨勢，x軸就僅僅是資料index而已
 > age <- infert$age
 > plot(age)
 
@@ -63,7 +71,7 @@ spon
 > plot(age, type = "l")
 
 
-# 直方圖，最簡陋的那種
+# 直方圖，最簡陋的那種，(年齡區間, 人數)
 > x <- hist(age)
 # 細節
 > x
@@ -96,7 +104,7 @@ attr(,"class")
 > sum(age > 26 & age <= 28)
 [1] 45
 
-# x軸的age有刻度數字
+# 切完之後，x軸的age有刻度數字
 > plot(cut(age, breaks = x$breaks))
 
 
@@ -160,7 +168,7 @@ Frequency = 1
 > lines(x)
 
 # 設定樣式
-# lwd為線的寬度
+# (lineType, lineWidth, color)
 > lines(x, lty = 3, lwd = 3, col = 2)
 
 
@@ -213,7 +221,6 @@ null device
 
 
 # %>% 屬於`magrittr`套件
-# 可以引入`dplyr`來寫可以???????????????
 > table(hsb$sex) %>% pie()
 
 
