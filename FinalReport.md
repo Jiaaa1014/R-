@@ -26,3 +26,11 @@
 以前三大項來說，剛起步的時代力量在個人捐贈佔總獻金比是74.26%，民進黨將近6成，而國民黨只佔3成
 營利事業捐贈，DPP及KMT約3成多，時代力量約16%。
 政黨捐贈，DPP及時代力量探向1%，然而KMT來自政黨捐獻將近36.32%是其獻金來源最大宗。
+
+
+# 資料來源
+* [數讀政治獻金](https://www.mirrormedia.mg/projects/political-contribution/#/)
+* [politicalcontribution](https://github.com/mirror-media/politicalcontribution)
+* [政商關係](https://www.mirrormedia.mg/projects/political-contribution/#/explore)
+* [政治選區愛你有多少](https://www.facebook.com/notes/claire-tsao/%E6%94%BF%E6%B2%BB%E7%8D%BB%E9%87%91%E4%B9%8B%E9%81%B8%E5%8D%80%E6%84%9B%E4%BD%A0%E6%9C%89%E5%A4%9A%E5%B0%91/1946938758655360/)
+* [政治獻金：你掌握了小額捐款，然後呢？](https://medium.com/@austinwang_23988/%E6%94%BF%E6%B2%BB%E7%8D%BB%E9%87%91-%E4%BD%A0%E6%8E%8C%E6%8F%A1%E4%BA%86%E5%B0%8F%E9%A1%8D%E6%8D%90%E6%AC%BE-%E7%84%B6%E5%BE%8C%E5%91%A2-b61086e46e28)
