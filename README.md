@@ -36,6 +36,7 @@ File -> Reopening with Encoding...
  * 低階繪圖函數: `points`, `lines`, `legend`
  
  * [`ggplot2`套件官方網站](http://ggplot2.tidyverse.org/index.html)
+ > [HOW CAN I EXPLORE DIFFERENT SMOOTHS IN GGPLOT2? | R FAQ](https://stats.idre.ucla.edu/r/faq/how-can-i-explore-different-smooths-in-ggplot2/)
  * [`ggplot2`精要圖](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 
 ### 直觀、好用抓資料來操作的函數
