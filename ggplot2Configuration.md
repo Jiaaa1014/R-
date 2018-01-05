@@ -1,4 +1,5 @@
 下列筆記參考於：[這](blog.csdn.net/bone_ace/article/details/4742745a)
+
 圖形資料是 x, y = A, B，設定文字來源，調整位置及角度
 ```r
 geom_text(aes(label = B, vjust = 1.1, hjust = -0.5, angle = 45), show_guide = FALSE) 
