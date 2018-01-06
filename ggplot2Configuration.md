@@ -45,3 +45,15 @@ theme(panel.border = element_blank()
 ```r
 theme(axis.line = element_line(size=1, colour = "black"))
 ```
+9種主題
+```r
+theme_gray()
+theme_bw()
+theme_linedraw()
+theme_light()
+theme_dark()
+theme_minimal()
+theme_classic()
+theme_void()
+theme_test()
+```
