@@ -1,16 +1,8 @@
-```r
-  ggplot(eachPoliGet1, aes(獻金總額萬元)) + theme_gray()+ theme(aspect.ratio = 1 / 2) +
-    geom_density(alpha = 0.5) +
-    geom_vline(xintercept = mean(eachPoliGet1$獻金總額萬元))
-
-  density(eachPoliGet1$獻金總額萬元)
-```
-
 ### 捐獻金額密度圖
 
 ```r
 ggplot(eachPoliGet1, aes(獻金總額萬元)) + theme_gray()+ theme(aspect.ratio = 1 / 2) +
-    geom_density(alpha = 0.5) +
+    geom_density() +
     geom_vline(xintercept = mean(eachPoliGet1$獻金總額萬元))
 ```
 
@@ -57,15 +49,13 @@ ggplot(eachPoliGet, aes(捐贈筆數, 獻金總額, label = 候選人, color = �
 
 ![所有參選人的獻金分布圖](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/32.png)
 
-中下方的線條為總體平均獻金
+中下方的線條為總體平均獻金，獻金百分位以下：
 
 ```r
 summary(eachPoliGet$獻金總額)
     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.
     1000  1891750  4379000  5675650  8142500 26915133
 ```
-
-獻金百分位
 
 ---
 
@@ -81,14 +71,6 @@ ggplot(eachPoliGet, aes(候選人, 獻金總額, color = isOnLine)) +
 ![參選人於該黨的獻金分布圖](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/33.png)
 
 由此可知很明顯，國民黨大挫敗，獻金總額與是否當選的關聯性低落。
-
-```r
-summary(eachPoliGet$獻金總額)
-    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.
-    1000  1891750  4379000  5675650  8142500 26915133
-```
-
-獻金百分位
 
 ---
 
