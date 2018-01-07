@@ -1,9 +1,9 @@
 
 
 
-![各政黨的的獻金總額](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/00.png =10x10)
+![各政黨的的獻金總額](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/00.png)
 
-![捐獻金額密度圖](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/01.png =100x100)
+![捐獻金額密度圖](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/01.png)
 
 ![勝落敗所得獻金比例](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/07.png)
 
