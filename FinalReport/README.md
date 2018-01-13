@@ -49,18 +49,58 @@
 
 是否符合預期？模型解釋
 
-### 說明：
+### 前提說明：
 
 * 選擇在已在立法院替人民服務的政黨：分別為中國國民黨、民主進步黨、時代力量、無黨團結聯盟以及無黨籍。
 * 立委資料不包括不分區立委
-* 無黨團結聯盟只有一個高金素梅參選並且當選，該黨人數當選率佔 100%。
-* 無黨籍參選 15 人之中只有趙正宇當選，2014 年以無黨籍當選議員，之後獲得民進黨以及非藍營的支持選上立委。
+* 無黨團結聯盟只有一個`高金素梅`參選並且當選，該黨人數當選率佔 100%。
+* 無黨籍參選 15 人之中只有`趙正宇`當選，2014 年以無黨籍當選議員，之後獲得民進黨以及非藍營的支持選上立委。
 * 時代力量四選三，洪慈庸、林昶佐、邱顯智、黃國昌，邱顯智落敗
 
-| COoefficient | B0       |   B1   |
-| :----------: | :------- | :----: |
-|  中國國民黨  | 1012165  | 173414 |
-|  民主進步黨  | 2204964  | 92647  |
-|   時代力量   | 933278   | 71176  |
-| 無黨團結聯盟 | 1500000  |   NA   |
-|    無黨籍    | -18373   | 152752 |
+##### 勝選落選兩樣情
+
+```r
+ggplot(winOrLoseGet,aes("", 該結果比例, fill = isOnLine)) +
+    geom_bar(stat = "identity", alpha = 0.8) +
+    coord_polar(theta = "y") + scale_fill_manual(values = c("#787878","#CB4042")) +
+    labs(title ="勝選一方的獻金大約佔了七成", x = "", y = "")
+```
+
+![勝落敗所得獻金比例](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/07.png)
+
+---
+
+##### 勝選人在該黨所佔的人數比及獻金比
+
+```r
+ggplot(eachPoliGet, aes(候選人, 獻金總額, color = 政黨)) + theme_grey() +
+    geom_point(size = 2) + 
+    theme(legend.box.margin = margin(0, 0, 230, -100), axis.text = element_blank(), 
+        axis.ticks = element_blank(), panel.grid = element_blank()) +
+    scale_color_manual(values = cb7) + geom_hline(yintercept = mean(eachPoliGet$獻金總額))
+```
+
+![勝選一方在每黨所佔的人數比及獻金比](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/22.png)
+
+**無黨團結聯盟不算，先前說明過他們只派一位參選並且當選**
+
+---
+
+# 所有參選人的獻金總額分布圖
+
+```r
+ggplot(eachPoliGet, aes(捐贈筆數, 獻金總額, label = 候選人, color = 政黨)) + theme_grey() +
+    geom_point() + scale_color_manual(values = cb7) + 
+    geom_smooth(se = FALSE, method = "lm") +
+    geom_abline(intercept = 1746139, slope = 109232)
+```
+
+![所有參選人的獻金分布圖](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/32.png)
+
+中下方的線條為總體平均獻金，獻金百分位以下：
+
+```r
+summary(eachPoliGet$獻金總額)
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.
+    1000  1891750  4379000  5675650  8142500 26915133
+```
