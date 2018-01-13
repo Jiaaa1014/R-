@@ -15,10 +15,9 @@
 **而這次報告，獻金的限制範圍在營利事業上面**
 
 1. 以前五大黨為族群，分別顯示其收到的獻金筆數、獻金總額的分布為何
-
 2. 關於獻金筆數對於獻金總額做回歸
 3. 以是否勝選`isOnline`以及以中國國民黨`isBlue`，這兩項為Dummy Variable
-3. 順便檢視誰拿的錢很多結果還落選的，不符合效益的也要抓出來。
+4. 順便檢視誰拿的錢很多結果還落選的，不符合效益的也要抓出來。
 
 ---
 
@@ -41,20 +40,12 @@
 * 營利事業捐贈，DPP 及 KMT 約 3 成多，時代力量約 16%。
 * 政黨捐贈，DPP 及時代力量探向 1%，**KMT 來自政黨捐獻將近 36.32%是其獻金來源最大宗。**
 
-# 資料來源
+# 主軸
 
-* [數讀政治獻金](https://www.mirrormedia.mg/projects/political-contribution/#/)
-* [politicalcontribution](https://github.com/mirror-media/politicalcontribution)
-* [政治選區愛你有多少](https://www.facebook.com/notes/claire-tsao/%E6%94%BF%E6%B2%BB%E7%8D%BB%E9%87%91%E4%B9%8B%E9%81%B8%E5%8D%80%E6%84%9B%E4%BD%A0%E6%9C%89%E5%A4%9A%E5%B0%91/1946938758655360/)
-* [政治獻金：你掌握了小額捐款，然後呢？](https://medium.com/@austinwang_23988/%E6%94%BF%E6%B2%BB%E7%8D%BB%E9%87%91-%E4%BD%A0%E6%8E%8C%E6%8F%A1%E4%BA%86%E5%B0%8F%E9%A1%8D%E6%8D%90%E6%AC%BE-%E7%84%B6%E5%BE%8C%E5%91%A2-b61086e46e28)
-  _比較企業公開支持、匿名支持、人民支持個別與得票率的關係_
+是否符合預期？
 
-# 結論
-
-是否符合預期？模型解釋
-
-### 前提說明：
-
+#### 前提說明：
+* 使用`stringi`, `dplyr`, `magrittr`, `ggplot2`四個套件。
 * 選擇在已在立法院替人民服務的政黨：分別為中國國民黨、民主進步黨、時代力量、無黨團結聯盟以及無黨籍。
 * 立委資料不包括不分區立委。
 * 無黨團結聯盟只有一個`高金素梅`參選並且當選，該黨人數當選率佔 100%。
@@ -118,6 +109,7 @@ summary(eachPoliGet$獻金總額)
     1000  1891750  4379000  5675650  8142500 26915133
 ```
 
+---
 ##### 捐贈數目對於獻金總額的回歸線
 
 ```r
@@ -148,7 +140,7 @@ summary(eachPoliGet$獻金總額)
 
 ---
 
-# 個別黨派其捐贈數目對於獻金總額的回歸線
+##### 個別黨派其捐贈數目對於獻金總額的回歸線
 
 ```r
   ggplot(eachPoliGet, aes(捐贈筆數, 獻金總額, label = 候選人, color = 政黨)) + theme_dark() +
@@ -160,3 +152,25 @@ summary(eachPoliGet$獻金總額)
 ![捐贈筆數對於獻金總額的影響 / 每黨](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/41.png)
 
 將上一張圖分開來，除了藍綠兩黨以外的人太少，回歸意義不大。
+
+---
+
+若只扣除無黨團結聯盟(反正也才上一席)，無黨籍同理由、時代力量僅四位參選人。
+做到後來其實在分區立委方面還是剩下藍綠兩黨的競爭，其他黨也因數量太小，影響程度不大，在這裡去除掉：
+以`isOnLine`及`isBlue`為dummy variables。
+```r
+twoParties <- filter(eachPoliGet, 政黨 == "中國國民黨" | 政黨== "民主進步黨") %>%
+  mutate(isBlue = as.numeric(政黨 == "中國國民黨"),isOnLine = ifelse(isOnLine, 1,0))
+```
+
+
+
+# 資料來源
+
+* [數讀政治獻金](https://www.mirrormedia.mg/projects/political-contribution/#/)
+* [politicalcontribution](https://github.com/mirror-media/politicalcontribution)
+* [政治選區愛你有多少](https://www.facebook.com/notes/claire-tsao/%E6%94%BF%E6%B2%BB%E7%8D%BB%E9%87%91%E4%B9%8B%E9%81%B8%E5%8D%80%E6%84%9B%E4%BD%A0%E6%9C%89%E5%A4%9A%E5%B0%91/1946938758655360/)
+* [政治獻金：你掌握了小額捐款，然後呢？](https://medium.com/@austinwang_23988/%E6%94%BF%E6%B2%BB%E7%8D%BB%E9%87%91-%E4%BD%A0%E6%8E%8C%E6%8F%A1%E4%BA%86%E5%B0%8F%E9%A1%8D%E6%8D%90%E6%AC%BE-%E7%84%B6%E5%BE%8C%E5%91%A2-b61086e46e28)
+  _比較企業公開支持、匿名支持、人民支持個別與得票率的關係_
+
+
