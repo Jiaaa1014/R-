@@ -91,7 +91,7 @@ ggplot(eachPoliGet, aes(候選人, 獻金總額, color = 政黨)) + theme_grey()
 
 ---
 
-# 所有參選人的獻金總額分布圖
+##### 所有參選人的獻金總額分布圖
 
 ```r
 ggplot(eachPoliGet, aes(捐贈筆數, 獻金總額, label = 候選人, color = 政黨)) + theme_grey() +
@@ -102,12 +102,59 @@ ggplot(eachPoliGet, aes(捐贈筆數, 獻金總額, label = 候選人, color = �
 
 ![所有參選人的獻金分布圖](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/32.png)
 
+那一條橫軸為每位參選人算出的獻金平均
+
+![當選的獻金分布圖](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/31.png)
+
 中下方的線條為總體平均獻金，獻金百分位以下：
 其實立委年薪為230萬，加上其他的立委補助、保險和事務費，大概將近360萬元。
-不過選舉一次金流量遠遠大過於薪水，獻金的背後，是權力，是政商友好。
+
+不過選舉一次金流量遠遠大過於薪水，獻金的背後，是權力，是政商關係的賭注。
 
 ```r
 summary(eachPoliGet$獻金總額)
     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.
     1000  1891750  4379000  5675650  8142500 26915133
 ```
+
+##### 捐贈數目對於獻金總額的回歸線
+
+```r
+  ggplot(eachPoliGet, aes(捐贈筆數, 獻金總額, label = 候選人, color = 政黨)) + theme_grey() +
+    geom_point() + scale_color_manual(values = cb7) + 
+    geom_smooth(se = FALSE, method = "lm") +
+    geom_abline(intercept = 1746139, slope = 109232)
+```
+
+![捐贈筆數對於獻金總額的影響](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/40.png)
+
+| Coefficient  |    B0     |   B1   |
+| :----------: | :-------: | :----: |
+|  中國國民黨  | 1012165   | 173414 |
+|  民主進步黨  | 2204964   | 92647  |
+|   時代力量   | 933278    | 71176  |
+| 無黨團結聯盟 | 1500000   |   NA   |
+|    無黨籍    |  -18373   | 152752 |
+
+政治獻金可以用來抵稅，對於企業來說，對單一參選人捐贈最多不超過 10 萬元，而捐獻扣除額不得超過當年度申報綜合所得總額的 10%。在反正捐了也沒有太大損失還可以抵稅的狀況下，一個企業捐 100 萬給一人也只能扣 50 萬，那麼捐給 5 人各 20 萬還可以意思意思賺賺人情。民進黨在此張圖的回歸線低於總體回歸線，意即，政治獻金有其投機性，選舉當時風向看不看好是一大因素，無差別立場的企業當然是貢獻給可能會上的立委，所以民進黨以數量取勝。
+
+* 民進黨參選人的總體營利事業捐獻筆數來看，前 30 名即佔了 25 個名額。
+
+* 國民黨若以每筆捐贈平均來看的話，前 30 名之中佔了 24 位，然而民進黨只佔了 4 位，國民黨的斜率`B1`將近民進黨兩倍
+
+* 企業當中最凱當屬遠東集團營利事業捐贈共 5400 萬無差別撒錢，第二名的裕隆集團捐獻給予國民黨人較多，而第三名的台泥捐獻予 23 名全都是國民黨員。
+* CP 值低：一直想選台北市長的丁守中、以及吳育昇，林郁方、楊瓊瓔、楊麗環、廖正井皆錢多落馬。
+
+---
+# 個別黨派其捐贈數目對於獻金總額的回歸線
+
+```r
+  ggplot(eachPoliGet, aes(捐贈筆數, 獻金總額, label = 候選人, color = 政黨)) + theme_dark() +
+    geom_point(size = 1.8) + scale_color_manual(values = cb7) +
+    geom_smooth(se = FALSE, method = "lm") + facet_wrap(~ 政黨, scales = "free") +
+    theme(panel.grid = element_blank())
+```
+
+![捐贈筆數對於獻金總額的影響 / 每黨](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/41.png)
+
+將上一張圖分開來，除了藍綠兩黨以外的人太少，回歸意義不大。
