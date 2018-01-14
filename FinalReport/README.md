@@ -227,10 +227,13 @@ twoParties <- filter(eachPoliGet, 政黨 == "中國國民黨" | 政黨== "民主
 
 # 資料來源
 
+### 此系列為鏡周刊所提供，包括來源`.csv`
+* [GitHub](https://github.com/mirror-media/politicalcontribution)
 * [數讀政治獻金](https://www.mirrormedia.mg/projects/political-contribution/#/)
-* [politicalcontribution](https://github.com/mirror-media/politicalcontribution)
-* [政治選區愛你有多少](https://www.facebook.com/notes/claire-tsao/%E6%94%BF%E6%B2%BB%E7%8D%BB%E9%87%91%E4%B9%8B%E9%81%B8%E5%8D%80%E6%84%9B%E4%BD%A0%E6%9C%89%E5%A4%9A%E5%B0%91/1946938758655360/)
-* [政治獻金：你掌握了小額捐款，然後呢？](https://medium.com/@austinwang_23988/%E6%94%BF%E6%B2%BB%E7%8D%BB%E9%87%91-%E4%BD%A0%E6%8E%8C%E6%8F%A1%E4%BA%86%E5%B0%8F%E9%A1%8D%E6%8D%90%E6%AC%BE-%E7%84%B6%E5%BE%8C%E5%91%A2-b61086e46e28)
-  _比較企業公開支持、匿名支持、人民支持個別與得票率的關係_
 
+### 其他參考資訊
+* 錢從基層選區來得多，票就會多嗎？
+[政治選區愛你有多少](https://www.facebook.com/notes/claire-tsao/%E6%94%BF%E6%B2%BB%E7%8D%BB%E9%87%91%E4%B9%8B%E9%81%B8%E5%8D%80%E6%84%9B%E4%BD%A0%E6%9C%89%E5%A4%9A%E5%B0%91/1946938758655360/)
 
+* 杜克大學 王宏恩再Medium更詳盡分析對於匿名支持/企業支持/個人支持所影響最後得票率的回歸分析
+[政治獻金：你掌握了小額捐款，然後呢？](https://medium.com/@austinwang_23988/%E6%94%BF%E6%B2%BB%E7%8D%BB%E9%87%91-%E4%BD%A0%E6%8E%8C%E6%8F%A1%E4%BA%86%E5%B0%8F%E9%A1%8D%E6%8D%90%E6%AC%BE-%E7%84%B6%E5%BE%8C%E5%91%A2-b61086e46e28)
