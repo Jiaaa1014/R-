@@ -135,8 +135,10 @@ summary(eachPoliGet$獻金總額)
 
 * 國民黨若以每筆捐贈平均來看的話，前 30 名之中佔了 24 位，然而民進黨只佔了 4 位，國民黨的斜率`B1`將近民進黨兩倍
 
-* 企業當中最凱當屬遠東集團營利事業捐贈共 5400 萬無差別撒錢，第二名的裕隆集團捐獻給予國民黨人較多，而第三名的台泥捐獻予 23 名全都是國民黨員。
-* CP 值低：一直想選台北市長的丁守中、以及吳育昇，林郁方、楊瓊瓔、楊麗環、廖正井皆錢多落馬。
+* 企業當中最凱當屬遠東集團營利事業捐贈共 5400 萬無差別撒錢，第二名的裕隆集團捐獻給予國民黨人較多，
+* 而第三名的台泥捐獻予 23 名全都是國民黨員，其他如金鼎證券集團、大慶集團也壓倒性偏向國民黨。
+* 建新、力麗集團以及在高雄有環境爭議的日月光集團大多捐獻予民進黨員居多。
+* CP 值低：一直想選台北市長的丁守中、以及吳育昇，林郁方、楊瓊瓔、楊麗環、廖正井皆拿得多最後落馬。
 
 ---
 
@@ -155,12 +157,75 @@ summary(eachPoliGet$獻金總額)
 
 ---
 
-若只扣除無黨團結聯盟(反正也才上一席)，無黨籍同理由、時代力量僅四位參選人。
-做到後來其實在分區立委方面還是剩下藍綠兩黨的競爭，其他黨也因數量太小，影響程度不大，在這裡去除掉：
+
+##### 若以結果勝選`isOnLine`, `isBlue`
+
+扣除無黨團結聯盟(反正也才上一席)，無黨籍同前理由、時代力量僅四位參選人。後來其實在分區立委方面還是剩下藍綠兩黨的競爭，其他黨也因數量太小，影響程度不大，在這裡去除掉：
+
 以`isOnLine`及`isBlue`為dummy variables。
+
+|  X  | isOnLine | isBlue |
+|:---:| :-------:| :----: |
+|  1  | 選上 | 國民黨 |
+|  0  | 落選 | 民進黨  |
+
+
 ```r
 twoParties <- filter(eachPoliGet, 政黨 == "中國國民黨" | 政黨== "民主進步黨") %>%
   mutate(isBlue = as.numeric(政黨 == "中國國民黨"),isOnLine = ifelse(isOnLine, 1,0))
+```
+```r
+
+  lm(獻金總額 ~ 捐贈筆數 + isOnLine + isBlue, twoParties)
+  # Coefficients:
+  # (Intercept)     捐贈筆數     isOnLine       isBlue  
+  #     -475102       109559      2081777      2370359  
+  
+  lm(獻金總額 ~ 捐贈筆數 + isBlue, twoParties)
+  # Coefficients:
+  # (Intercept)      捐贈筆數       isBlue  
+  #      932901       114741      1519558  
+  
+  ## 若先看身為藍營對捐贈筆數的影響
+  lm(捐贈筆數 ~ isBlue, twoParties)
+  # Coefficients:
+  #   (Intercept)       isBlue  
+  #         57.57       -33.03 
+  
+  ## 再將捐贈筆數的變數抽掉，則身為藍營的負向力變大
+  lm(獻金總額 ~ isBlue, twoParties)
+  # Coefficients:
+  # (Intercept)       isBlue  
+  #     7538993     -2269870  
+  
+  ## 然而捐贈筆數對於最後的總額而言，其變化程度與上面另外兩個虛擬變數相比而言穩定
+  lm(獻金總額 ~ 捐贈筆數, twoParties)
+  # Coefficients:
+  # (Intercept)      捐贈筆數  
+  #     2163102       104576  
+```
+
+將兩項虛擬變數對`捐贈比數`及`獻金總額`做比較
+發現與上述的捐贈筆數v.s獻金總額的回歸分布的解釋相同，綠營在相對捐贈數目上取勝
+
+```r  
+  lm(捐贈筆數 ~ isBlue + isOnLine, twoParties)
+  # Coefficients:
+  # (Intercept)       isBlue     isOnLine  
+  #       47.19       -26.81        12.66  
+  
+  lm(獻金總額 ~ isBlue + isOnLine, twoParties)
+  # Coefficients:
+  # (Intercept)       isBlue     isOnLine  
+  #     4695485      -566882      3469080  
+``` 
+
+將兩虛擬變數做比較，其為身為藍營參選人造成將近50%負向影響勝敗選
+```r  
+  lm(isOnLine ~ isBlue , twoParties)
+  #  Coefficients:
+  #  (Intercept)       isBlue  
+  #       0.8197      -0.4909  
 ```
 
 
