@@ -245,6 +245,8 @@ twoParties <- filter(eachPoliGet, 政黨 == "中國國民黨" | 政黨== "民主
 
 # 估計結果討論
 
+程式碼檔案參考這：
+
 在**分析**部分大都描述完畢，[鏡周刊](https://www.mirrormedia.mg/projects/political-contribution/#/)對於政商關係的描述更多，圖表更有互動性。
 
 此次報告所拿的資料只限於營利事業捐贈，所有政治獻金28億中，佔了9億32%)。錢雖然不能完全影響政治，但可視作將金錢當作推力。
