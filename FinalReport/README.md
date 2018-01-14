@@ -245,7 +245,7 @@ twoParties <- filter(eachPoliGet, 政黨 == "中國國民黨" | 政黨== "民主
 
 # 估計結果討論
 
-程式碼檔案參考這：
+程式碼檔案參考[這這這](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/Politician-master.r)
 
 在**分析**部分大都描述完畢，[鏡周刊](https://www.mirrormedia.mg/projects/political-contribution/#/)對於政商關係的描述更多，圖表更有互動性。
 
