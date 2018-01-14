@@ -142,27 +142,9 @@ summary(eachPoliGet$獻金總額)
 
 ---
 
-##### 個別黨派其捐贈數目對於獻金總額的回歸線
-
-```r
-  ggplot(eachPoliGet, aes(捐贈筆數, 獻金總額, label = 候選人, color = 政黨)) + theme_dark() +
-    geom_point(size = 1.8) + scale_color_manual(values = cb7) +
-    geom_smooth(se = FALSE, method = "lm") + facet_wrap(~ 政黨, scales = "free") +
-    theme(panel.grid = element_blank())
-```
-
-![捐贈筆數對於獻金總額的影響 / 每黨](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/41.png)
-
-將上一張圖分開來，除了藍綠兩黨以外的人太少，回歸意義不大。
-
----
-
-
-##### 若以結果勝選`isOnLine`, `isBlue`
+##### 若以結果勝選`isOnLine`以及是否為藍營`isBlue`當虛擬變數
 
 扣除無黨團結聯盟(反正也才上一席)，無黨籍同前理由、時代力量僅四位參選人。後來其實在分區立委方面還是剩下藍綠兩黨的競爭，其他黨也因數量太小，影響程度不大，在這裡去除掉：
-
-以`isOnLine`及`isBlue`為dummy variables。
 
 |  X  | isOnLine | isBlue |
 |:---:| :-------:| :----: |
@@ -228,7 +210,20 @@ twoParties <- filter(eachPoliGet, 政黨 == "中國國民黨" | 政黨== "民主
   #       0.8197      -0.4909  
 ```
 
+##### 個別黨派其捐贈數目對於獻金總額的回歸線
 
+```r
+  ggplot(eachPoliGet, aes(捐贈筆數, 獻金總額, label = 候選人, color = 政黨)) + theme_dark() +
+    geom_point(size = 1.8) + scale_color_manual(values = cb7) +
+    geom_smooth(se = FALSE, method = "lm") + facet_wrap(~ 政黨, scales = "free") +
+    theme(panel.grid = element_blank())
+```
+
+![捐贈筆數對於獻金總額的影響 / 每黨](https://github.com/Jiaaa1014/R-/blob/master/FinalReport/imgs/41.png)
+
+將上一張圖分開來，除了藍綠兩黨以外的人太少，回歸意義不大。
+
+---
 
 # 資料來源
 
